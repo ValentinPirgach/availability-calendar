@@ -1,0 +1,209 @@
+
+$calendar-border-color: #ddd;
+$days-title-bg: #f4f4f4;
+$weekend-color: #fb7b7b;
+$current-day-border-color: #28af95;
+$price-color: #2a8c80;
+$specific-price-color: #ffc05c;
+$specific-unbroken-color: #ff995b;
+$availabilities-color: #f2f2f2;
+
+
+.calendar-wrapper {
+  border: 1px $calendar-border-color solid;
+  margin: auto;
+  max-width: 800px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 100;
+  font-size: 12px;
+  background: #fcfcfc;
+}
+
+.days-name-wrapper {
+  background-color: $days-title-bg;
+  text-transform: capitalize;
+  box-shadow: 0 3px 7px -5px rgba(0,0,0,0.5);
+
+  .day-name {
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    width: calc(100% / 7);
+    box-sizing: border-box;
+    line-height: 42px;
+    color: #acacac;
+
+    &:not(:nth-child(7n)) {
+      border-right: 1px $calendar-border-color solid;
+    }
+  }
+}
+
+.dates-wrapper {
+  font-size: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 449px;
+  position: relative;
+
+
+  .dates-inner-wrapper {
+
+  }
+}
+
+.date-wrapper {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  width: calc(100% / 7);
+  text-align: center;
+  min-height: 90px;
+  cursor: pointer;
+  border-bottom: 1px $calendar-border-color solid;
+  z-index: 5;
+
+  &:not(:nth-child(7n)) {
+    border-right: 1px $calendar-border-color solid;
+  }
+
+  &.opened {
+    box-shadow: 0 5px 15px -5px rgba(0,0,0,0.5);
+    background: #fff;
+    z-index: 15;
+
+    .day-wrapper {
+      & ~ .timepicker-wrapper {
+        opacity: 1;
+      }
+    }
+  }
+
+  .day-wrapper {
+    position: absolute;
+    size: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    color: #6a6c6f;
+    top: 0;
+    transition: all 0.3s ease-out;
+
+    &.weekend {
+      color: $weekend-color;
+    }
+
+    &.current {
+      &::before {
+        position: absolute;
+        content: '';
+        size: 30px;
+        padding: 6px;
+        border: 1px $current-day-border-color solid;
+        top: 50%;
+        left: 50%;
+        margin: -21px;
+        border-radius: 5px;
+        z-index: 20;
+      }
+    }
+
+    .day {
+      font-size: 20px;
+      z-index: 10;
+    }
+
+    .month {
+      font-size: 12px;
+      z-index: 10;
+    }
+
+    .price {
+      position: absolute;
+      right: -1px;
+      top: -1px;
+      font-size: 11px;
+      color: $price-color;
+      border: 1px $price-color solid;
+      padding: 2px 6px;
+      z-index: 15;
+      border-radius: 0 0 0 5px;
+    }
+  }
+}
+
+.timepicker-wrapper {
+  position: absolute;
+  width: 120%;
+  border: 1px $calendar-border-color solid;
+  color: #000;
+  box-sizing: border-box;
+  width: 170px;
+  height: 91px;
+  background: #fff;
+  top: 90px;
+  left: 50%;
+  margin-top: -1px;
+  margin-left: -85px;
+  z-index: 100;
+
+  &.ng-enter {
+    transition: all 0.3s easeOutBounce;
+  }
+
+  &.ng-enter {
+    transform: scale(0) translateY(-50%);
+
+    &.ng-enter-active {
+      transform: scale(1) translateY(0);
+    }
+  }
+}
+
+.specific-rule {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  size: calc(100% + 1px) 19px;
+  z-index: 15;
+  background: $specific-price-color;
+
+  .specific-price {
+    position: absolute;
+    font-size: 12px;
+    color: #fff;
+    display: none;
+    line-height: 19px;
+    padding-left: 30px;
+  }
+
+  &.first {
+    width: 95%;
+    border-radius: 5px 0 0 5px;
+    right: -1px;
+    left: auto;
+
+    .specific-price {
+      display: block;
+    }
+  }
+
+  &.last {
+    width: 95%;
+    border-radius: 0 5px 5px 0;
+    left: 0;
+  }
+
+  &.unbroken {
+    background: $specific-unbroken-color;
+  }
+}
+
+.day-availability {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  z-index: 1;
+  background: $availabilities-color;
+
+}

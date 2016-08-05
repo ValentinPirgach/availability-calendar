@@ -1,0 +1,16 @@
+.calendar-wrapper
+  .days-name-wrapper
+    .day-name(ng-repeat="day in Calendar.days" ng-bind="day")
+  .dates-wrapper(calendar-infinite-scroll)
+    .dates-inner-wrapper
+      .date-wrapper(ng-repeat="date in Calendar.dates track by $index" ng-click="Calendar.selectDate(date)" ng-class="{'opened': date.opened}")
+        .day-wrapper(ng-class="{'weekend': date.weekend, 'current': date.current}")
+          .day(ng-bind="Calendar.getDate(date.date)")
+          .month(ng-bind="Calendar.getMonth(date.date)")
+          .price(ng-bind="date.price | currency: '$': 0")
+          .specific-rule(ng-if="date.specificPrice" ng-class="Calendar.specificPriceClasses(date)")
+            .specific-price(ng-bind="date.specificPrice.price | currency:'$':0")
+          .day-availability(ng-repeat="availability in date.availability" ng-style="Calendar.availCell(availability)")
+
+        .timepicker-wrapper(ng-if="date.opened")
+          | Select time
