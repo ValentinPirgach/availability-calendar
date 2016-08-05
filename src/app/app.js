@@ -1,25 +1,31 @@
+//vendors
 import angular from 'angular';
+import ngAnimate from 'angular-animate';
 
-import '../style/app.css';
+//Styles
+import './styles/calendar.scss';
 
-let app = () => {
-  return {
-    template: require('./app.html'),
-    controller: 'AppCtrl',
-    controllerAs: 'app'
-  }
-};
+//controllers
+import CalendarCtrl from './controllers/calendar-ctrl.js';
 
-class AppCtrl {
-  constructor() {
-    this.url = 'https://github.com/preboot/angular-webpack';
-  }
-}
+//services
+import CalendarService from './services/calendar.service.js';
+
+//directives
+import availabilityCalendar from './directives/availablity-calendar.js';
+import calendarInfiniteScroll from './directives/calendar-infinite-scroll.js';
 
 const MODULE_NAME = 'app';
 
-angular.module(MODULE_NAME, [])
-  .directive('app', app)
-  .controller('AppCtrl', AppCtrl);
+angular
+  .module(MODULE_NAME, [ngAnimate])
+  //services
+  .service('CalendarService', CalendarService)
+  //controllers
+  .controller('CalendarCtrl', CalendarCtrl)
+  //directives
+  .directive('availabilityCalendar', availabilityCalendar)
+  .directive('calendarInfiniteScroll', calendarInfiniteScroll)
+;
 
 export default MODULE_NAME;

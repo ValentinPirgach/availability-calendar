@@ -2,10 +2,15 @@
 
 // Modules
 var webpack = require('webpack');
+var path = require('path');
 var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var precss       = require('precss');
+var autoprefixer = require('autoprefixer');
+var scssSyntax = require('postcss-scss');
+
 
 /**
  * Env
@@ -39,7 +44,7 @@ module.exports = function makeWebpackConfig () {
    * Should be an empty object if it's generating a test build
    * Karma will handle setting it up for you when it's a test build
    */
-  config.output = isTest ? {} : {
+  config.output = isProd ? {} : {
     // Absolute output directory
     path: __dirname + '/dist',
 
@@ -54,6 +59,10 @@ module.exports = function makeWebpackConfig () {
     // Filename for non-entry points
     // Only adds hash in build mode
     chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
+  };
+
+  config.resolve = {
+      modulesDirectories: ["web_modules", "node_modules", "bower_components"]
   };
 
   /**
@@ -79,38 +88,49 @@ module.exports = function makeWebpackConfig () {
   // Initialize module
   config.module = {
     preLoaders: [],
-    loaders: [{
+    loaders: [
+    {
       // JS LOADER
       // Reference: https://github.com/babel/babel-loader
       // Transpile .js files using babel-loader
       // Compiles ES6 and ES7 into ES5 code
       test: /\.js$/,
       loader: 'babel',
-      exclude: /node_modules/
-    }, {
-      // CSS LOADER
-      // Reference: https://github.com/webpack/css-loader
-      // Allow loading css through js
-      //
-      // Reference: https://github.com/postcss/postcss-loader
-      // Postprocess your css with PostCSS plugins
+      exclude: /(node_modules|bower_components)/
+    },
+    {
+      test: /\.(scss|sass)$/,
+      loader: 'style!css?sourceMap!sass?sourceMap&sourceComments!postcss-loader',
+      syntax: scssSyntax
+    },
+    {
       test: /\.css$/,
       // Reference: https://github.com/webpack/extract-text-webpack-plugin
       // Extract css files in production builds
       //
       // Reference: https://github.com/webpack/style-loader
       // Use style-loader in development.
-      loader: isTest ? 'null' : ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader')
-    }, {
+      loader: 'css-loader?sourceMap!postcss-loader'
+    },
+    {
       // ASSET LOADER
       // Reference: https://github.com/webpack/file-loader
       // Copy png, jpg, jpeg, gif, svg, woff, woff2, ttf, eot files to output
       // Rename the file using the asset hash
       // Pass along the updated reference to your code
       // You can add here any file extension you want to get copied to your output
-      test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
+      test: /\.(png|jpg|jpeg|gif)$/,
       loader: 'file'
-    }, {
+    },
+    { test: /\.(woff|woff2)$/,  loader: "url-loader?limit=10000&mimetype=application/font-woff" },
+    { test: /\.ttf$/,    loader: "file-loader" },
+    { test: /\.eot$/,    loader: "file-loader" },
+    { test: /\.svg$/,    loader: "file-loader" },
+    {
+      test: /\.pug$/,
+      loader: 'pug-html-loader'
+    },
+    {
       // HTML LOADER
       // Reference: https://github.com/webpack/raw-loader
       // Allow loading html through js
@@ -139,11 +159,11 @@ module.exports = function makeWebpackConfig () {
    * Reference: https://github.com/postcss/autoprefixer-core
    * Add vendor prefixes to your css
    */
-  config.postcss = [
-    autoprefixer({
-      browsers: ['last 2 version']
-    })
-  ];
+  config.postcss = () => [require('precss'), require('postcss-size'), require('postcss-cssnext')]
+
+  config.sassLoader = {
+    includePaths: [path.join(__dirname, 'scss')]
+  };
 
   /**
    * Plugins
@@ -165,8 +185,12 @@ module.exports = function makeWebpackConfig () {
       // Reference: https://github.com/webpack/extract-text-webpack-plugin
       // Extract css files
       // Disabled when in test mode or not in build mode
-      new ExtractTextPlugin('[name].[hash].css', {disable: !isProd})
-    )
+      new ExtractTextPlugin('[name].[hash].css', {disable: !isProd}),
+      new ExtractTextPlugin('styles.css'),
+      new webpack.ResolverPlugin(
+          new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(".bower.json", ["main"])
+      )
+    );
   }
 
   // Add build specific plugins
