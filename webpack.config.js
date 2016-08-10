@@ -35,7 +35,7 @@ module.exports = function makeWebpackConfig () {
    * Karma will set this when it's a test build
    */
   config.entry = isTest ? {} : {
-    app: './src/app/app.js'
+    app: './src/app/app.js',
   };
 
   /**
@@ -44,7 +44,7 @@ module.exports = function makeWebpackConfig () {
    * Should be an empty object if it's generating a test build
    * Karma will handle setting it up for you when it's a test build
    */
-  config.output = isProd ? {} : {
+  config.output = isTest ? {} : {
     // Absolute output directory
     path: __dirname + '/dist',
 
@@ -62,7 +62,13 @@ module.exports = function makeWebpackConfig () {
   };
 
   config.resolve = {
-      modulesDirectories: ["web_modules", "node_modules", "bower_components"]
+      modulesDirectories: ["web_modules", "node_modules", "bower_components"],
+      extensions: ['', '.js'],
+      alias: {
+       jquery: 'jquery/dist/jquery.js',
+       lodash: 'lodash',
+       moment: 'moment'
+      }
   };
 
   /**
@@ -87,7 +93,16 @@ module.exports = function makeWebpackConfig () {
 
   // Initialize module
   config.module = {
-    preLoaders: [],
+    preLoaders: [
+      {
+          test: /jquery[\\\/]src[\\\/]selector-sizzle\.js$/,
+          loader: 'string-replace',
+          query: {
+            search: '../external/sizzle/dist/sizzle',
+            replace: 'sizzle'
+          }
+      }
+    ],
     loaders: [
     {
       // JS LOADER
@@ -95,12 +110,13 @@ module.exports = function makeWebpackConfig () {
       // Transpile .js files using babel-loader
       // Compiles ES6 and ES7 into ES5 code
       test: /\.js$/,
-      loader: 'babel',
+      loader: 'babel!ng-annotate',
       exclude: /(node_modules|bower_components)/
     },
+    { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports?jQuery=jquery' },
     {
       test: /\.(scss|sass)$/,
-      loader: 'style!css?sourceMap!sass?sourceMap&sourceComments!postcss-loader',
+      loader: 'style!css?sourceMap!sass?sourceMap&sourceComments!postcss-loader!sass-loader',
       syntax: scssSyntax
     },
     {
@@ -122,10 +138,11 @@ module.exports = function makeWebpackConfig () {
       test: /\.(png|jpg|jpeg|gif)$/,
       loader: 'file'
     },
-    { test: /\.(woff|woff2)$/,  loader: "url-loader?limit=10000&mimetype=application/font-woff" },
-    { test: /\.ttf$/,    loader: "file-loader" },
-    { test: /\.eot$/,    loader: "file-loader" },
-    { test: /\.svg$/,    loader: "file-loader" },
+    { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,   loader: "file" },
+    { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,  loader: "file" },
+    { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    loader: "file" },
+    { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,    loader: "file" },
+    { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,    loader: "file" },
     {
       test: /\.pug$/,
       loader: 'pug-html-loader'
@@ -159,7 +176,12 @@ module.exports = function makeWebpackConfig () {
    * Reference: https://github.com/postcss/autoprefixer-core
    * Add vendor prefixes to your css
    */
-  config.postcss = () => [require('precss'), require('postcss-size'), require('postcss-cssnext')]
+  config.postcss = () => [
+    require('precss'),
+    require('postcss-size'),
+    require('postcss-cssnext'),
+    require('postcss-focus')
+  ]
 
   config.sassLoader = {
     includePaths: [path.join(__dirname, 'scss')]
@@ -189,7 +211,14 @@ module.exports = function makeWebpackConfig () {
       new ExtractTextPlugin('styles.css'),
       new webpack.ResolverPlugin(
           new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(".bower.json", ["main"])
-      )
+      ),
+      new ExtractTextPlugin("bootstrap-and-customizations.css"),
+      new webpack.ProvidePlugin({
+       $: 'jquery',
+       jQuery: 'jquery',
+       _: 'lodash',
+       moment: 'moment'
+     })
     );
   }
 

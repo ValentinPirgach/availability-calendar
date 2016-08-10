@@ -8,6 +8,23 @@
   <base href="/">
 </head>
 <body>
-  <availability-calendar></availability-calendar>
+  <div ng-controller="MainCtrl as Main">
+    <button class="btn btn-success" ng-click="Main.getPrices()">Get prices...</button>
+    <button  class="btn btn-success" ng-click="Main.getAvailabilities()">Get availabilities...</button>
+
+    <span ng-bind="Main.formatDate(Main.dates.dateStart)"></span>
+    <span> - </span>
+    <span ng-bind="Main.formatDate(Main.dates.dateEnd)"></span>
+
+    <span ng-if="Main.errors.unavailableDates">Please, select another date</span>
+    <span ng-if="Main.errors.unbrokenPrice">It's a package date with unbroken specific price</span>
+
+    <availability-calendar
+      prices="Main.pricies"
+      availabilities="Main.availabilities"
+      selected-period="Main.dates"
+      errors="Main.errors">
+    </availability-calendar>
+  </div>
 </body>
 </html>

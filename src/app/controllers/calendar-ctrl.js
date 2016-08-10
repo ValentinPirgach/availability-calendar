@@ -1,8 +1,5 @@
-import _ from 'lodash/lodash.js';
-import moment from 'moment/moment.js';
-
 export default class CalendarCtrl {
-  constructor(CalendarService) {
+  constructor($scope, CalendarService) {
     this.dates = [];
     CalendarService.setDates(this.days);
 
@@ -10,9 +7,9 @@ export default class CalendarCtrl {
     let dates = CalendarService.generateDates();
     this.dates = CalendarService.loadMoreDates(dates);
     this.selectedDates = [];
+    this.CalendarService = CalendarService;
 
-    CalendarService.getPrices();
-    CalendarService.getAvailabilities();
+    
   }
 
   getDate (_moment_) {
@@ -20,26 +17,12 @@ export default class CalendarCtrl {
   }
 
   getMonth (_moment_) {
-    return _moment_.format('MMM');
+    return _moment_.format('MMMM');
   }
 
-  selectDate (date) {
-    for(let i in this.selectedDates) {
-      if(date.date.isSame(this.selectedDates[i].date)) {
-        delete this.selectedDates[i].opened;
-        this.selectedDates = [];
-        return;
-      }
-    }
-
-    if(this.selectedDates.length === 1) {
-      _.forEach(this.selectedDates, (date) => {
-        delete date.opened;
-      });
-      this.selectedDates = [];
-    }
-
-    this.selectedDates.push(_.assign(date, {opened: true}));
+  renderSelected (period) {
+    let dates = period.sort((dateS, dateE) => dateS.date.isAfter(dateE.date));
+    this.CalendarService.renderSelected({dateStart: dates[0].date, dateEnd: dates[1].date});
   }
 
   specificPriceClasses (date) {
@@ -53,17 +36,42 @@ export default class CalendarCtrl {
   availCell (cell) {
 		//same day
 		if(cell._first && cell._last) {
-			let width = moment(cell._last).diff(cell._first, 'h') * 100 / 24;
-			let left = moment(cell._first).hour() * 100 / 24;
+			let width = moment(cell._last).diff(cell._first, 'm') * 100 / 1440;
+			let left = moment(cell._first).diff(cell._first.clone().startOf('day'), 'm') * 100 / 1440;
 
 			return {width: `${width}%`, left: `${left}%`};
 		}
 
 		if(cell._first)
-			return {width: `${100 - moment(cell._first).hour() * 100 / 24}%`, right: 0};
+			return {width: `${100 - moment(cell._first).diff(cell._first.clone().startOf('day'), 'm') * 100 / 1440}%`, right: 0};
 
 		if(cell._last)
-			return {width: `${moment(cell._last).hour() * 100 / 24}%`, left: 0};
+			return {width: `${moment(cell._last).diff(cell._last.clone().startOf('day'), 'm') * 100 / 1440}%`, left: 0};
+
+		return {width: `100%`};
+	}
+
+  selectedCell (cell) {
+		//same day
+		if(cell._first && cell._last) {
+			let width = moment(cell._last).diff(cell._first, 'm') * 100 / 1440;
+			let left = moment(cell._first).diff(cell._first.clone().startOf('day'), 'm') * 100 / 1440;
+			return {width: `${width}%`, left: `${left}%`};
+		}
+
+		if(cell._first) {
+			return {
+        width: `${100 - moment(cell._first).diff(cell._first.clone().startOf('day'), 'm') * 100 / 1440}%`,
+        right: '0'
+      };
+    }
+
+		if(cell._last) {
+			return {
+        width: `${moment(cell._last).diff(cell._last.clone().startOf('day'), 'm') * 100 / 1440}%`,
+        left: 0
+      };
+    }
 
 		return {width: `100%`};
 	}

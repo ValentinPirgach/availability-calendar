@@ -1,4 +1,7 @@
 
+$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
+@import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+
 $calendar-border-color: #ddd;
 $days-title-bg: #f4f4f4;
 $weekend-color: #fb7b7b;
@@ -7,6 +10,7 @@ $price-color: #2a8c80;
 $specific-price-color: #ffc05c;
 $specific-unbroken-color: #ff995b;
 $availabilities-color: #f2f2f2;
+$selected-color: #28af95;
 
 
 .calendar-wrapper {
@@ -58,24 +62,54 @@ $availabilities-color: #f2f2f2;
   box-sizing: border-box;
   width: calc(100% / 7);
   text-align: center;
-  min-height: 90px;
-  cursor: pointer;
+  min-height: 93px;
   border-bottom: 1px $calendar-border-color solid;
+  user-select: none;
+  cursor: default;
   z-index: 5;
 
   &:not(:nth-child(7n)) {
     border-right: 1px $calendar-border-color solid;
   }
 
+  &:nth-child(7n),
+  &:nth-child(7n-1),
+  &:nth-child(7n-2),
+  &:nth-child(7n-3) {
+    .timepicker-wrapper {
+      left: auto;
+      right: 100%;
+      box-shadow: -3px 5px 10px -4px rgba(0,0,0,0.5);
+    }
+  }
+
   &.opened {
-    box-shadow: 0 5px 15px -5px rgba(0,0,0,0.5);
     background: #fff;
     z-index: 15;
+  }
+
+  &.selected {
+    .fill-selected {
+      opacity: 1;
+    }
 
     .day-wrapper {
-      & ~ .timepicker-wrapper {
-        opacity: 1;
+      color: #2e2e2e;
+
+      &.weekend {
+        color: #b54f4f;
+
+        .day,
+        .month {
+          text-shadow: none;
+        }
       }
+    }
+  }
+
+  &.busy {
+    .fill-selected {
+      background: rgba(253, 0, 11, 0.34);
     }
   }
 
@@ -87,7 +121,8 @@ $availabilities-color: #f2f2f2;
     justify-content: center;
     color: #6a6c6f;
     top: 0;
-    transition: all 0.3s ease-out;
+    box-sizing: content-box;
+    //transition: all 0.3s ease-out;
 
     &.weekend {
       color: $weekend-color;
@@ -104,6 +139,7 @@ $availabilities-color: #f2f2f2;
         left: 50%;
         margin: -21px;
         border-radius: 5px;
+        box-sizing: content-box;
         z-index: 20;
       }
     }
@@ -125,37 +161,26 @@ $availabilities-color: #f2f2f2;
       font-size: 11px;
       color: $price-color;
       border: 1px $price-color solid;
+      background: #fcfcfc;
       padding: 2px 6px;
       z-index: 15;
       border-radius: 0 0 0 5px;
-    }
-  }
-}
 
-.timepicker-wrapper {
-  position: absolute;
-  width: 120%;
-  border: 1px $calendar-border-color solid;
-  color: #000;
-  box-sizing: border-box;
-  width: 170px;
-  height: 91px;
-  background: #fff;
-  top: 90px;
-  left: 50%;
-  margin-top: -1px;
-  margin-left: -85px;
-  z-index: 100;
+      &.specific-price {
+        text-decoration: line-through;
+        opacity: 0.6;
+      }
 
-  &.ng-enter {
-    transition: all 0.3s easeOutBounce;
-  }
+      &.ng-enter {
+        transition: all 0.2s ease-out;
+        opacity: 0;
+        transform: scale(0);
 
-  &.ng-enter {
-    transform: scale(0) translateY(-50%);
-
-    &.ng-enter-active {
-      transform: scale(1) translateY(0);
+        &.ng-enter-active {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
     }
   }
 }
@@ -164,7 +189,7 @@ $availabilities-color: #f2f2f2;
   position: absolute;
   bottom: 5px;
   left: 0;
-  size: calc(100% + 1px) 19px;
+  size: calc(100% + 1px) 17px;
   z-index: 15;
   background: $specific-price-color;
 
@@ -173,8 +198,12 @@ $availabilities-color: #f2f2f2;
     font-size: 12px;
     color: #fff;
     display: none;
-    line-height: 19px;
+    line-height: 17px;
     padding-left: 30px;
+  }
+
+  .glyphicon {
+    display: none;
   }
 
   &.first {
@@ -185,6 +214,16 @@ $availabilities-color: #f2f2f2;
 
     .specific-price {
       display: block;
+    }
+
+    .glyphicon {
+      position: absolute;
+      display: block;
+      font-size: 12px;
+      top: 2px;
+      left: 10px;
+      color: #fff;
+
     }
   }
 
@@ -197,6 +236,17 @@ $availabilities-color: #f2f2f2;
   &.unbroken {
     background: $specific-unbroken-color;
   }
+
+  &.ng-enter {
+    transition: all 0.2s ease-out;
+    opacity: 0;
+    transform: translateX(-100%);
+
+    &.ng-enter-active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 }
 
 .day-availability {
@@ -206,4 +256,228 @@ $availabilities-color: #f2f2f2;
   z-index: 1;
   background: $availabilities-color;
 
+  &.ng-enter {
+    transition: all 0.2s ease-out;
+    opacity: 0;
+    transform: translateX(-100%);
+
+    &.ng-enter-active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+.timepicker-inner-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+.timepicker-wrapper {
+  position: absolute;
+  border: 1px $calendar-border-color solid;
+  border-left: none;
+  color: #000;
+  box-sizing: border-box;
+  width: 200px;
+  background: rgba(255,255,255,1);
+  left: 100%;
+  margin-top: -1px;
+  margin-left: -1px;
+  box-shadow: 3px 5px 10px -4px rgba(0,0,0,0.5);
+  padding: 7px 10px 8px;
+  transition: all 0.2s linear;
+  opacity: 0.9;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.ng-enter {
+    transition: all 0.2s ease-out;
+  }
+
+  &.ng-leave {
+    transition: all 0.1s ease-in;
+  }
+
+  &.ng-enter {
+    overflow: hidden;
+    max-width: 0;
+
+    .timepicker-controlls-wrapper {
+      padding-top: 0;
+      margin-top: 0;
+      max-height: 0;
+      transition: all 0.1s ease-out 1s;
+    }
+
+    &.ng-enter-active {
+      max-width: 250px;
+
+      .timepicker-controlls-wrapper {
+        padding-top: 5px;
+        margin-top: 5px;
+        max-height: 23px;
+      }
+    }
+  }
+
+  &.ng-leave {
+    overflow: hidden;
+    max-width: 250px;
+
+    &.ng-leave-active {
+      max-width: 0;
+    }
+  }
+
+  .value-navigation-btn {
+    position: relative;
+    width: 100%;
+    display: block;
+    border-radius: 5px 5px 0 0;
+    background: #f5f5f5;
+    color: #6a6c6f;
+    border: none;
+    outline: 0;
+    cursor: pointer;
+    font-family: "Verdana", sans-serif;
+    font-size: 14px;
+    line-height: 15px;
+
+    &:hover {
+      background: #e3e3e3;
+    }
+
+    &.down {
+      transform: rotate(180deg);
+    }
+  }
+
+  .time-value-wrapper {
+    position: relative;
+    size: 50px auto;
+  }
+
+  .time-value-separator {
+    padding: 0 5px;
+    line-height: 70px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+  }
+
+  .time-value {
+    display: block;
+    border: 1px $calendar-border-color solid;
+    text-align: center;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 0;
+    outline: 0;
+    color: #6a6c6f;
+  }
+
+  .time-value-part {
+    text-align: center;
+
+    button {
+      border: none;
+      background: rgba(0,0,0,0);
+      border-radius: 0;
+      text-transform: uppercase;
+      font-family: "Open Sans", sans-serif;
+      font-size: 14px;
+      color: #6a6c6f;
+      outline: 0;
+      padding: 8px 15px;
+      margin-top: 22px;
+      margin-left: 10px;
+
+      &:hover {
+        background: #f5f5f5;
+      }
+    }
+  }
+}
+
+.timepicker-controlls-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  //border-top: 1px $calendar-border-color solid;
+  overflow: hidden;
+  padding-top: 5px;
+  margin-top: 5px;
+  max-height: 23px;
+  transition: all 0.1s ease-out;
+
+  button {
+    border: none;
+    outline: 0;
+    width: 49%;
+    color: #fff;
+    background: rgb(39, 209, 112);
+    transition: all 0.2s ease-in;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+    cursor: pointer;
+
+    &:hover {
+      background: rgb(52, 172, 103);
+    }
+
+    &[type=reset] {
+      background: rgb(218, 99, 84);
+
+      &:hover {
+        background: rgb(236, 124, 110);
+      }
+    }
+  }
+}
+
+.fill-selected {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: $selected-color;
+  opacity: 0;
+  z-index: 5;
+}
+
+.set-time {
+  position: absolute;
+  font-size: 17px;
+  padding: 4px;
+  border-radius: 50%;
+  color: rgba(0,0,0,0.5);
+  cursor: pointer;
+  z-index: 30;
+  top: 50%;
+  margin-top: -10px;
+  size: 23px;
+
+  &.left {
+    left: 0;
+  }
+
+  &.right {
+    right: 0;
+  }
+
+  &.opened {
+    background: rgba(200,200,200,0.5);
+  }
+
+  &:hover {
+    background: rgba(200,200,200,0.5);
+  }
+
+  .glyphicon {
+    top: -2px;
+    left: -1px;
+  }
 }

@@ -1,4 +1,4 @@
-import $ from 'jquery/dist/jquery';
+//import $ from 'jquery';
 
 export default function calendarInfiniteScroll (CalendarService) {
     return {

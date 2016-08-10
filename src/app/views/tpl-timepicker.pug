@@ -1,0 +1,27 @@
+.timepicker-inner-wrapper
+  .time-value-wrapper
+    button.value-navigation-btn.up(type="button" ng-click="Time.addHour()") ^
+    input.time-value(
+      type="text"
+      ng-model="Time.hours"
+      ng-change="Time.updateInput()"
+      ng-model-options="{ debounce: 1000 }"
+      tabindex="1")
+    button.value-navigation-btn.down(type="button" ng-click="Time.subtractHour()") ^
+  span.time-value-separator
+    | :
+  .time-value-wrapper
+    button.value-navigation-btn.up(type="button" ng-click="Time.addMinute()") ^
+    input.time-value(
+      type="text"
+      ng-model="Time.minutes"
+      ng-change="Time.updateInput()"
+      ng-model-options="{ debounce: 1000 }"
+      tabindex="2")
+    button.value-navigation-btn.down(type="button" ng-click="Time.subtractMinute()") ^
+  .time-value-part
+    button(type="button" ng-bind="Time.part" ng-click="Time.changePart()")
+
+//- .timepicker-controlls-wrapper
+//-   button(type="button") OK
+//-   button(type="reset") Cancel
