@@ -18,8 +18,8 @@
             .specific-price(ng-bind="date.specificPrice.price | currency:'$':0")
             .glyphicon.glyphicon-lock(ng-if="date.specificPrice.unbroken")
             .glyphicon.glyphicon-eye-open(ng-if="!date.specificPrice.unbroken")
-          .day-availability(ng-repeat="availability in date.availability" ng-style="Calendar.availCell(availability)")
-          .fill-selected(ng-style="Calendar.selectedCell(date)")
+          .day-availability(ng-repeat="availability in date.availability" ng-style="Calendar.cellStyle(availability)")
+          .fill-selected(ng-style="Calendar.cellStyle(date)")
           .set-time.left(ng-if="date._first" ng-class="{'opened': date.opened.first}" show-picker="first")
             .glyphicon.glyphicon-time
           .set-time.right(ng-if="date._last" ng-class="{'opened': date.opened.last}" show-picker="last")
