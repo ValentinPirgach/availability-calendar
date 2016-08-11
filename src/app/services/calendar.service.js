@@ -13,12 +13,6 @@ import clearData from './calendar.services.components/clearData';
 import checkAllAvailabilities from './calendar.services.components/checkAllAvailabilities.js';
 import checkForErrors from './calendar.services.components/checkForErrors.js';
 
-//vendors
-if(!process.env.production) {
-  var _ = require('lodash');
-  var moment = require('moment/moment.js');
-}
-
 export default class CalendarService {
   constructor($http) {
     this._lastLoaded = {};

@@ -34,6 +34,7 @@ module.exports = function makeWebpackConfig () {
    */
   config.entry = isTest ? {} : {
     app: './src/app/app.js',
+    vendor: ['jquery', 'lodash', 'angular', 'moment'],
   };
 
   /**
@@ -64,6 +65,8 @@ module.exports = function makeWebpackConfig () {
       extensions: ['', '.js'],
       alias: {
        jquery: 'jquery/dist/jquery.js',
+       moment: 'moment/moment.js',
+       lodash: 'lodash'
       }
   };
 
@@ -75,7 +78,7 @@ module.exports = function makeWebpackConfig () {
   if (isTest) {
     config.devtool = 'inline-source-map';
   } else if (isProd) {
-    config.devtool = 'source-map';
+    //config.devtool = 'source-map';
   } else {
     config.devtool = 'eval-source-map';
   }
@@ -188,15 +191,7 @@ module.exports = function makeWebpackConfig () {
    * Reference: http://webpack.github.io/docs/configuration.html#plugins
    * List: http://webpack.github.io/docs/list-of-plugins.html
    */
-  config.plugins = [
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-    }),
-    new webpack.DefinePlugin({
-      'process.env.production': JSON.stringify(isProd)
-    })
-  ];
+  config.plugins = [];
 
   // Skip rendering index.html in test mode
   if (!isTest) {
@@ -216,7 +211,23 @@ module.exports = function makeWebpackConfig () {
       new webpack.ResolverPlugin(
           new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(".bower.json", ["main"])
       ),
-      new ExtractTextPlugin("bootstrap-and-customizations.css")
+      new ExtractTextPlugin("bootstrap-and-customizations.css"),
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        moment: 'moment',
+        _: 'lodash'
+      }),
+      new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js")
+    );
+  }
+
+  if(isTest) {
+    config.plugins.push(
+      new webpack.ProvidePlugin({
+        _: 'lodash',
+        moment: 'moment'
+      })
     );
   }
 

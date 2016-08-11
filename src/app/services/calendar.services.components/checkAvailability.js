@@ -1,8 +1,3 @@
-if(!process.env.production) {
-  var _ = require('lodash');
-  var moment = require('moment/moment.js');
-}
-
 export default function checkAvailability (date, period) {
   if(date.availability && date.availability.length) {
     return _.some(date.availability, (availability) => {

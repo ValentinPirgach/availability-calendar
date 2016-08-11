@@ -1,7 +1,3 @@
-if(!process.env.production) {
-  var _ = require('lodash');
-  var moment = require('moment/moment.js');
-}
 /**
  * Rendering selected items on calendar
  **/
