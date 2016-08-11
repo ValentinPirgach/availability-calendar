@@ -1,17 +1,13 @@
 {
-  "name": "Availability calendar",
-  "description": "A workflow for Angular made with Webpack",
+  "name": "availability-calendar",
+  "description": "",
   "main": "",
   "authors": [
     "Valentyn Pirhach"
   ],
   "license": "MIT",
   "homepage": "",
-  "dependencies": {
-    "moment": "^2.14.1",
-    "lodash": "^4.14.1",
-    "jquery": "^3.1.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "angular-mocks": "^1.5.8"
   }
