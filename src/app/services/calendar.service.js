@@ -13,6 +13,9 @@ import clearData from './calendar.services.components/clearData';
 import checkAllAvailabilities from './calendar.services.components/checkAllAvailabilities.js';
 import checkForErrors from './calendar.services.components/checkForErrors.js';
 
+//vendors
+import moment from 'moment';
+
 export default class CalendarService {
   constructor($http) {
     this._lastLoaded = {};

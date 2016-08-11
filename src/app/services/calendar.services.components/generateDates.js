@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 /**
  * Creating calendar dates
  **/
@@ -8,7 +10,7 @@ export default function generateDates (_moment_) {
       dates = [];
 
   for (let i = 1; i <= count; i++) {
-    let date = moment({d: i, M: _moment_.month(), Y: _moment_.year()});
+    let date = moment({d: i, M: _moment_.month(), Y: _moment_.year()}).startOf('day');
     dates.push({
       date: date,
       weekend: this.isWeekend(date),
@@ -22,7 +24,7 @@ export default function generateDates (_moment_) {
 
   let dow = moment(this._lastLoaded).date(1).day();
   for(let i = 0; i < dow; i++) {
-    let date = moment(this._lastLoaded).date(1).subtract(i+1, 'day');
+    let date = moment(this._lastLoaded).date(1).subtract(i+1, 'day').startOf('day');
     dates.unshift({
       date: date,
       weekend: this.isWeekend(date),

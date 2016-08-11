@@ -3,6 +3,7 @@ import angular from 'angular';
 import ngAnimate from 'angular-animate';
 import 'bootstrap-sass/eyeglass-exports';
 import _ from 'lodash';
+import moment from 'moment';
 
 //Styles
 import './styles/calendar.scss';

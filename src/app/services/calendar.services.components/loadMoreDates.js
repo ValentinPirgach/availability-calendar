@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export default function loadMoreDates (dates) {
   if(this._lastLoaded.isSameOrBefore(this._maxDate)) {
     this._lastLoaded.add(1, 'M');

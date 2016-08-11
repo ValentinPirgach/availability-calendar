@@ -18,7 +18,6 @@ export default function (CalendarService) {
 
         scope.$watchGroup([() => CalendarService.selectedPeriod, () => CalendarService.errors], (data) => {
           scope.selectedPeriod = data[0];
-          console.log(data[1]);
           scope.errors = data[1];
         });
       }
