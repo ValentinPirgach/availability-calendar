@@ -1,3 +1,7 @@
+if(!process.env.production) {
+  var _ = require('lodash');
+  var moment = require('moment/moment.js');
+}
 /**
  * Viewing prices in cells
  **/

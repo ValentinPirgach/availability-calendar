@@ -1,4 +1,7 @@
-import moment from 'moment';
+if(!process.env.production) {
+  var _ = require('lodash');
+  var moment = require('moment/moment.js');
+}
 
 export default function loadMoreDates (dates) {
   if(this._lastLoaded.isSameOrBefore(this._maxDate)) {

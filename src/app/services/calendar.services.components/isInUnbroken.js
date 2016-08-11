@@ -1,3 +1,8 @@
+if(!process.env.production) {
+  var _ = require('lodash');
+  var moment = require('moment/moment.js');
+}
+
 /**
  * Check if selected period is between unbroken pricing rule
  **/

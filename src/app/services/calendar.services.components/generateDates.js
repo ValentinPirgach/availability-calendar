@@ -1,4 +1,7 @@
-import moment from 'moment';
+if(!process.env.production) {
+  var _ = require('lodash');
+  var moment = require('moment/moment.js');
+}
 
 /**
  * Creating calendar dates

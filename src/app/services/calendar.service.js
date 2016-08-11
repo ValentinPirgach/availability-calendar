@@ -14,7 +14,10 @@ import checkAllAvailabilities from './calendar.services.components/checkAllAvail
 import checkForErrors from './calendar.services.components/checkForErrors.js';
 
 //vendors
-import moment from 'moment';
+if(!process.env.production) {
+  var _ = require('lodash');
+  var moment = require('moment/moment.js');
+}
 
 export default class CalendarService {
   constructor($http) {

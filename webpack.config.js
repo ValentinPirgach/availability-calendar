@@ -10,8 +10,6 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var precss       = require('precss');
 var autoprefixer = require('autoprefixer');
 var scssSyntax = require('postcss-scss');
-
-
 /**
  * Env
  * Get npm lifecycle event to identify the environment
@@ -54,20 +52,18 @@ module.exports = function makeWebpackConfig () {
 
     // Filename for entry points
     // Only adds hash in build mode
-    filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
+    filename: isProd ? '[name].js' : '[name].bundle.js',
 
     // Filename for non-entry points
     // Only adds hash in build mode
-    chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
+    chunkFilename: isProd ? '[name].js' : '[name].bundle.js'
   };
 
   config.resolve = {
-      modulesDirectories: ["web_modules", "node_modules", "bower_components"],
+      modulesDirectories: ["node_modules", "bower_components"],
       extensions: ['', '.js'],
       alias: {
        jquery: 'jquery/dist/jquery.js',
-       lodash: 'lodash',
-       moment: 'moment'
       }
   };
 
@@ -192,7 +188,15 @@ module.exports = function makeWebpackConfig () {
    * Reference: http://webpack.github.io/docs/configuration.html#plugins
    * List: http://webpack.github.io/docs/list-of-plugins.html
    */
-  config.plugins = [];
+  config.plugins = [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+    }),
+    new webpack.DefinePlugin({
+      'process.env.production': JSON.stringify(isProd)
+    })
+  ];
 
   // Skip rendering index.html in test mode
   if (!isTest) {
@@ -212,13 +216,7 @@ module.exports = function makeWebpackConfig () {
       new webpack.ResolverPlugin(
           new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(".bower.json", ["main"])
       ),
-      new ExtractTextPlugin("bootstrap-and-customizations.css"),
-      new webpack.ProvidePlugin({
-       $: 'jquery',
-       jQuery: 'jquery',
-       _: 'lodash',
-       moment: 'moment'
-     })
+      new ExtractTextPlugin("bootstrap-and-customizations.css")
     );
   }
 
@@ -235,13 +233,13 @@ module.exports = function makeWebpackConfig () {
 
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       // Minify all javascript, switch loaders to minimizing mode
-      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.optimize.UglifyJsPlugin()
 
       // Copy assets from the public folder
       // Reference: https://github.com/kevlened/copy-webpack-plugin
-      new CopyWebpackPlugin([{
-        from: __dirname + '/src/public'
-      }])
+      // new CopyWebpackPlugin([{
+      //   from: __dirname + '/src/public'
+      // }])
     )
   }
 
