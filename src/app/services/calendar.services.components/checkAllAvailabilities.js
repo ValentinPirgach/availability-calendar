@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export default function checkAllAvailabilities (period) {
 	for(let i in this.availabilities) {
 		let avail = this.availabilities[i];
@@ -9,4 +11,6 @@ export default function checkAllAvailabilities (period) {
 			return true;
 		}
 	}
+
+  return false;
 }
