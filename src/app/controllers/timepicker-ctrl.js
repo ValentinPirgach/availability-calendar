@@ -2,12 +2,12 @@ let selectedDate = {};
 
 export default class TimepickerCtrl {
   constructor($scope, CalendarService) {
-    this.date = $scope.date;
+    this.date = $scope.cellTimepicker;
 
-    if($scope.date.opened.first) {
-      this.time = $scope.date._first;
-    } else if ($scope.date.opened.last) {
-      this.time = $scope.date._last;
+    if($scope.cellTimepicker.opened.first) {
+      this.time = $scope.cellTimepicker._first;
+    } else if ($scope.cellTimepicker.opened.last) {
+      this.time = $scope.cellTimepicker._last;
     }
 
     selectedDate = this.time.clone();
@@ -39,12 +39,15 @@ export default class TimepickerCtrl {
 
     if(this.CalendarService) {
       this.CalendarService.renderSelected();
+      this.CalendarService.changeCallback({
+        $range: this.CalendarService.selectedPeriod,
+        $calendarErrors: this.CalendarService.checkForErrors(this.CalendarService.selectedPeriod)
+      });
     }
   }
 
   updateInput () {
     if(this.invalidTime(this.time.clone().hours(parseInt(this.hours)).minutes(parseInt(this.minutes)))) {
-      console.log('invalid');
       return;
     }
 

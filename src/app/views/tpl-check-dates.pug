@@ -1,0 +1,52 @@
+form(name="Pickers" class="date-inputs-wrapper")
+  .pciker-group-wrapper
+    label.date-input-picker-wrapper
+      span.date-input-title Check In
+      input( type="text"
+             name="dateFrom"
+             class="date-input-picker"
+             ng-model="Check.dates.dateStart.date"
+             cell-datepicker
+             format="MM/DD/YYYY"
+             placeholder="MM/DD/YYYY"
+             position="left,bottom")
+
+    input( type="text"
+           cell-datepicker
+           name="timeFrom"
+           class="time-input-picker"
+           ng-if="Check.dates.dateStart.date"
+           ng-model="Check.dates.dateStart.time"
+           for-date="Check.dates.dateStart.date"
+           format="hh:mm a"
+           mode="time"
+           inline="inline")
+
+  .pciker-group-wrapper
+    label.date-input-picker-wrapper
+      span.date-input-title Check Out
+      input( type="text"
+             class="date-input-picker"
+             cell-datepicker
+             name="dateUntil"
+             ng-model="Check.dates.dateEnd.date"
+             min-date="Check.dates.dateStart.date"
+             format="MM/DD/YYYY"
+             placeholder="MM/DD/YYYY"
+             position="right,bottom")
+
+    input( type="text"
+           cell-datepicker
+           class="time-input-picker"
+           name="timeUntil"
+           ng-if="Check.dates.dateEnd.date"
+           ng-model="Check.dates.dateEnd.time"
+           min-date="Check.dates.dateStart.time"
+           format="hh:mm a"
+           mode="time"
+           inline="inline")
+
+div(style="text-align: center")
+  span(ng-bind="Check.dates.dateStart.format()")
+  span -
+  span(ng-bind="Check.dates.dateEnd.format()")

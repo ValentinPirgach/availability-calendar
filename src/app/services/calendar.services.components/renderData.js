@@ -10,4 +10,10 @@ export default function renderData (prices, availabilities) {
   if(availabilities) {
     this.renderAvailabilities();
   }
+
+  if(!_.isEmpty(this.selectedPeriod))
+    this.changeCallback({
+      $range: this.selectedPeriod,
+      $calendarErrors: this.checkForErrors(this.selectedPeriod)
+    });
 }

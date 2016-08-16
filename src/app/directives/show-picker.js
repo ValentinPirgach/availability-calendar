@@ -2,6 +2,8 @@ export default function showPicker (CalendarService, $timeout) {
   return {
     link(scope, element, attr) {
       $(element).on('mousedown mouseup', (event) => {
+        if(!_.isEmpty(CalendarService.touched)) return;
+
         event.stopPropagation();
 
         if(event.type === 'mouseup') {

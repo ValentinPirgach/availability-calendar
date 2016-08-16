@@ -6,7 +6,7 @@
       .date-wrapper(
         mouse-over
         ng-repeat="date in Calendar.dates track by $index"
-        ng-class="{'opened': date.opened.first || date.opened.last, 'busy': date.busy}")
+        ng-class="{'opened': date.opened.first || date.opened.last, 'busy': date.busy, 'selected': date.selected}")
         .day-wrapper(ng-class="{'weekend': date.weekend, 'current': date.current}")
           .day(ng-bind="Calendar.getDate(date.date)")
           .month(ng-bind="Calendar.getMonth(date.date)")
@@ -24,5 +24,5 @@
             .glyphicon.glyphicon-time
           .set-time.right(ng-if="date._last" ng-class="{'opened': date.opened.last}" show-picker="last")
             .glyphicon.glyphicon-time
-        div(ng-if="date.opened.first" timepicker)
-        div(ng-if="date.opened.last" timepicker)
+        div(ng-if="date.opened.first" cell-timepicker="date")
+        div(ng-if="date.opened.last" cell-timepicker="date")

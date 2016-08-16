@@ -1,0 +1,23 @@
+.pciker-group-wrapper
+  label.date-input-picker-wrapper
+    span.date-input-title Check In
+    input( type="text"
+           name="dateFrom"
+           class="date-input-picker"
+           ng-model="Date.date"
+           cell-datepicker
+           format="{{Date.dateFormat}}"
+           placeholder="{{Date.dateFormat}}"
+           min-date="minDate"
+
+           position="left,bottom")
+
+  input( type="text"
+         cell-datepicker
+         name="timeFrom"
+         class="time-input-picker"
+         ng-model="Date.date"
+         format="{{Date.timeFormat}}"
+         mode="time"
+         min-date="minDate"
+         position="right,bottom")

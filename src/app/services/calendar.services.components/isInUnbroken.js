@@ -10,8 +10,8 @@ export default function isInUnbroken (period) {
     let price = this.pricingRules[i];
 
     if (!price.broken && price.type == 'SpecificRule') {
-      let priceStart = price.startDate.startOf('day'),
-          priceEnd = price.endDate ? price.endDate.endOf('day') : moment().month(1).date(1).year(2056).endOf('day');
+      let priceStart = moment(price.startDate).startOf('day'),
+          priceEnd = price.endDate ? moment(price.endDate).endOf('day') : moment().month(1).date(1).year(2056).endOf('day');
 
       //start of price is in selected period
       let isStartInPrice = start.isBetween(priceStart, priceEnd, 'day', '[]');
@@ -26,8 +26,8 @@ export default function isInUnbroken (period) {
   }
 
   if (findBroken !== undefined) {
-    var brokenStart = findBroken.startDate.startOf('day'),
-        brokenEnd = findBroken.endDate ? findBroken.endDate.endOf('day') : moment().month(1).date(1).year(2056);
+    var brokenStart = moment(findBroken.startDate).startOf('day'),
+        brokenEnd = findBroken.endDate ? moment(findBroken.endDate).endOf('day') : moment().month(1).date(1).year(2056);
 
     if (start.isBetween(brokenStart, brokenEnd, 'minutes', '()') ||
         end.isBetween(brokenStart, brokenEnd, 'minutes', '()')) {
@@ -36,4 +36,6 @@ export default function isInUnbroken (period) {
 
     return false;
   }
+
+  return false;
 }

@@ -14,7 +14,7 @@ import checkAllAvailabilities from './calendar.services.components/checkAllAvail
 import checkForErrors from './calendar.services.components/checkForErrors.js';
 
 export default class CalendarService {
-  constructor($http) {
+  constructor($rootScope) {
     this._lastLoaded = {};
     this._maxAddedMonthes = 6;
     this._maxDate = moment().add(this._maxAddedMonthes, 'M');
@@ -27,6 +27,9 @@ export default class CalendarService {
     this.touched = {};
     this.lastOpened = {};
     this.errors = {};
+    this.changeCallback = null;
+
+    this.$rootScope = $rootScope;
   }
 
   getDayNames () {
@@ -38,7 +41,7 @@ export default class CalendarService {
   }
 
   setStart (date) {
-    this.selected = [];
+    this.selected = {};
     this.selected.start = date.date;
   }
 
@@ -46,10 +49,22 @@ export default class CalendarService {
     this.selected.end = date.date;
     let dates = [this.selected.start, this.selected.end].sort((dateS, dateE) => dateS.isAfter(dateE));
     this.renderSelected({dateStart: moment(dates[0]).startOf('day'), dateEnd: moment(dates[1]).endOf('day')});
+    this.changeCallback({
+      $range: this.selectedPeriod,
+      $calendarErrors: this.checkForErrors(this.selectedPeriod)
+    });
+  }
+
+  setSelected (start, end) {
+    this.renderSelected({dateStart:start, dateEnd: end});
   }
 
   setLastOpened (date) {
     this.lastOpened = date;
+  }
+
+  setChangeCallback (callback) {
+    this.changeCallback = callback;
   }
 
   getDates () {

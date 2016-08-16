@@ -1,0 +1,134 @@
+$buttons-bg: #f5f5f5;
+$text-color: #6a6c6f;
+$input-border-color: #e4e6e7;
+
+.bootstrap-datetimepicker-widget {
+  display: inline-block;
+
+  td {
+    &.disabled {
+      opacity: 0.7;
+    }
+  }
+
+  .timepicker {
+    max-width: 160px;
+
+    td {
+      height: auto;
+      line-height: normal;
+      width: 49px;
+
+      &[data-action] {
+        line-height: 23px;
+        border-radius: 0;
+
+        &:hover {
+          background: $buttons-bg;
+        }
+      }
+    }
+
+    a[data-action=incrementHours],
+    a[data-action=decrementMinutes],
+    a[data-action=decrementHours],
+    a[data-action=incrementMinutes] {
+      padding: 0;
+      max-height: 20px;
+      border: none;
+
+      span {
+        margin: 0;
+        background: $buttons-bg;
+        color: $text-color;
+        height: 20px;
+        border-radius: 4px 4px 0 0;
+        margin-top: -1px;
+      }
+    }
+
+    a[data-action=decrementMinutes],
+    a[data-action=decrementHours] {
+      span {
+        border-radius: 0 0 4px 4px;
+      }
+    }
+
+    table {
+      td {
+        span {
+          height: 20px;
+          line-height: 20px;
+          width: 49px;
+          font-weight: normal;
+          color: $text-color;
+
+          &[data-time-component] {
+            height: 33px;
+            line-height: 33px;
+            border-radius: 0;
+            border: 1px $input-border-color solid;
+            font-family: "Open Sans", sans-serif;
+
+            &:hover {
+              background: #fff;
+            }
+          }
+        }
+      }
+    }
+
+    button[data-action=togglePeriod] {
+      border-radius: 0;
+      background-color: #fff;
+      color: $text-color;
+      border: none;
+      width: 49px;
+      margin-left: 5px;
+
+      &:hover {
+        background: $buttons-bg;
+        border: 1px $input-border-color solid;
+      }
+    }
+  }
+}
+
+.date-inputs-wrapper {
+  //max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+  font-family: "Open Sans", sans-serif;
+  color: $text-color;
+}
+
+.pciker-group-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+label.date-input-picker-wrapper {
+  position: relative;
+  margin-bottom: 0;
+  font-weight: normal;
+  margin-right: 30px;
+}
+
+.date-input-title {
+  position: absolute;
+  top: -22px;
+}
+
+.date-input-picker {
+  height: 33px;
+  display: block;
+  border: 1px $input-border-color solid;
+  padding: 0 5px;
+
+  &:hover {
+    outline: 0;
+  }
+}

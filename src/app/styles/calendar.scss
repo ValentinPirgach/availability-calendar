@@ -1,6 +1,4 @@
 
-$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
-@import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 
 $calendar-border-color: #ddd;
 $days-title-bg: #f4f4f4;
@@ -16,11 +14,12 @@ $selected-color: #28af95;
 .calendar-wrapper {
   border: 1px $calendar-border-color solid;
   margin: auto;
-  max-width: 800px;
+  //max-width: 800px;
   font-family: "Open Sans", sans-serif;
   font-weight: 100;
   font-size: 12px;
   background: #fcfcfc;
+  overflow: hidden;
 }
 
 .days-name-wrapper {
@@ -47,7 +46,8 @@ $selected-color: #28af95;
   font-size: 0;
   overflow-x: hidden;
   overflow-y: scroll;
-  max-height: 449px;
+  max-height: 507px;
+  width: 100%;
   position: relative;
 
 
@@ -63,13 +63,31 @@ $selected-color: #28af95;
   width: calc(100% / 7);
   text-align: center;
   min-height: 93px;
-  border-bottom: 1px $calendar-border-color solid;
+  //border-bottom: 1px $calendar-border-color solid;
   user-select: none;
   cursor: default;
   z-index: 5;
 
+  &::before {
+    position: absolute;
+    content: '';
+    border-bottom: 1px $calendar-border-color solid;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+  }
+
   &:not(:nth-child(7n)) {
-    border-right: 1px $calendar-border-color solid;
+    &::after {
+      position: absolute;
+      content: '';
+      border-right: 1px $calendar-border-color solid;
+      height: 100%;
+      top: 0;
+      right: 0;
+      z-index: 10;
+    }
   }
 
   &:nth-child(7n),
@@ -157,7 +175,7 @@ $selected-color: #28af95;
 
     .price {
       position: absolute;
-      right: -1px;
+      right: 0;
       top: -1px;
       font-size: 11px;
       color: $price-color;
@@ -481,4 +499,8 @@ $selected-color: #28af95;
     top: -2px;
     left: -1px;
   }
+}
+
+.dropdown-menu {
+  display: block !important;
 }

@@ -7,6 +7,8 @@ export default function renderSelected (period) {
     this.selectedPeriod = period;
   }
 
+  if(!this.selectedPeriod.dateStart || !this.selectedPeriod.dateEnd) return false;
+
   let setSelected = (date) => {
     let checkAvailability = this.checkAvailability(date, this.selectedPeriod);
     let checkIsInUnbroken = this.isInUnbroken(this.selectedPeriod);
@@ -34,10 +36,10 @@ export default function renderSelected (period) {
     }
   }
 
-  this.checkForErrors(this.selectedPeriod);
-
   _.first(this.selectedDates)._first = this.selectedPeriod.dateStart;
   _.last(this.selectedDates)._last = this.selectedPeriod.dateEnd;
 
+  //TODO: need realization without events
+  this.$rootScope.$broadcast('calendar.datesHasBeenSelected', this.selectedPeriod);
   return this.selectedDates;
 }

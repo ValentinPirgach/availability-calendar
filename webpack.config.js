@@ -34,7 +34,7 @@ module.exports = function makeWebpackConfig () {
    */
   config.entry = isTest ? {} : {
     app: './src/app/app.js',
-    vendor: ['jquery', 'lodash', 'angular', 'moment'],
+
   };
 
   /**
@@ -49,7 +49,7 @@ module.exports = function makeWebpackConfig () {
 
     // Output path from the view of the page
     // Uses webpack-dev-server in development
-    publicPath: isProd ? '/' : 'http://localhost:8080/',
+    //publicPath: isProd ? '' : 'http://localhost:8080/',
 
     // Filename for entry points
     // Only adds hash in build mode
@@ -62,7 +62,7 @@ module.exports = function makeWebpackConfig () {
 
   config.resolve = {
       modulesDirectories: ["node_modules", "bower_components"],
-      extensions: ['', '.js'],
+      extensions: ['', '.js',],
       alias: {
        jquery: 'jquery/dist/jquery.js',
        moment: 'moment/moment.js',
@@ -115,8 +115,8 @@ module.exports = function makeWebpackConfig () {
     { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports?jQuery=jquery' },
     {
       test: /\.(scss|sass)$/,
-      loader: 'style!css?sourceMap!sass?sourceMap&sourceComments!postcss-loader!sass-loader',
-      syntax: scssSyntax
+      loader: ExtractTextPlugin.extract('style-loader','css?sourceMap!sass?sourceMap&sourceComments!postcss-loader!sass-loader'),
+      syntax: scssSyntax,
     },
     {
       test: /\.css$/,
@@ -125,7 +125,7 @@ module.exports = function makeWebpackConfig () {
       //
       // Reference: https://github.com/webpack/style-loader
       // Use style-loader in development.
-      loader: 'css-loader?sourceMap!postcss-loader'
+      loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader')
     },
     {
       // ASSET LOADER
@@ -191,7 +191,12 @@ module.exports = function makeWebpackConfig () {
    * Reference: http://webpack.github.io/docs/configuration.html#plugins
    * List: http://webpack.github.io/docs/list-of-plugins.html
    */
-  config.plugins = [];
+  config.plugins = [
+    //new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.js", Infinity)
+    new webpack.DefinePlugin({
+      'process.env.npm_lifecycle_event': JSON.stringify(process.env.npm_lifecycle_event)
+    })
+  ];
 
   // Skip rendering index.html in test mode
   if (!isTest) {
@@ -200,25 +205,22 @@ module.exports = function makeWebpackConfig () {
     config.plugins.push(
       new HtmlWebpackPlugin({
         template: './src/public/index.html',
-        inject: 'body'
+        inject: 'body',
       }),
 
       // Reference: https://github.com/webpack/extract-text-webpack-plugin
       // Extract css files
       // Disabled when in test mode or not in build mode
-      new ExtractTextPlugin('[name].[hash].css', {disable: !isProd}),
-      new ExtractTextPlugin('styles.css'),
+      new ExtractTextPlugin('[name].css'),
       new webpack.ResolverPlugin(
           new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(".bower.json", ["main"])
       ),
-      new ExtractTextPlugin("bootstrap-and-customizations.css"),
       new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery',
         moment: 'moment',
         _: 'lodash'
-      }),
-      new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js")
+      })
     );
   }
 
@@ -244,13 +246,13 @@ module.exports = function makeWebpackConfig () {
 
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       // Minify all javascript, switch loaders to minimizing mode
-      new webpack.optimize.UglifyJsPlugin()
+      new webpack.optimize.UglifyJsPlugin(),
 
       // Copy assets from the public folder
       // Reference: https://github.com/kevlened/copy-webpack-plugin
-      // new CopyWebpackPlugin([{
-      //   from: __dirname + '/src/public'
-      // }])
+      new CopyWebpackPlugin([{
+        from: __dirname + '/src/public'
+      }])
     )
   }
 

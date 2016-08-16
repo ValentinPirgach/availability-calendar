@@ -4,26 +4,30 @@
   <meta charset="UTF-8">
   <title>Availavility Claendar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <base href="/">
 </head>
 <body>
-  <div ng-controller="MainCtrl as Main">
+  <div ng-controller="CalendarTestCtrl as Main" class="form-inline" style="position: relative">
     <button class="btn btn-success" ng-click="Main.getPrices()">Get prices...</button>
     <button  class="btn btn-success" ng-click="Main.getAvailabilities()">Get availabilities...</button>
-
-    <span ng-bind="Main.formatDate(Main.dates.dateStart)"></span>
-    <span> - </span>
-    <span ng-bind="Main.formatDate(Main.dates.dateEnd)"></span>
 
     <span ng-if="Main.errors.unavailableDates">Please, select another date</span>
     <span ng-if="Main.errors.unbrokenPrice">It's a package date with unbroken specific price</span>
 
+    <!-- <check-dates start="Main.checkIn" end="Main.checkOut"></check-dates> -->
+    <div class="date-inputs-wrapper">
+      <div date-time-picker="Main.checkIn" min-date="today" date-change="Main.dateChange($date, 'checkIn')"></div>
+      <div date-time-picker="Main.checkOut" date-change="Main.dateChange($date, 'checkOut')" min-date="Main.checkIn"></div>
+    </div>
+
+    <div class="row text-center">
+      {{Main.checkIn.format()}} - {{Main.checkOut.format()}}
+    </div>
+
     <availability-calendar
       prices="Main.pricies"
       availabilities="Main.availabilities"
-      selected-period="Main.dates"
-      errors="Main.errors">
+      selected-period="{dateStart: Main.checkIn, dateEnd: Main.checkOut}"
+      range-change="Main.rangeChange($range, $calendarErrors)">
     </availability-calendar>
   </div>
 </body>
