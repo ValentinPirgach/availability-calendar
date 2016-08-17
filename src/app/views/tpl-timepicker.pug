@@ -1,24 +1,28 @@
 .timepicker-inner-wrapper
   .time-value-wrapper
-    button.value-navigation-btn.up(type="button" ng-click="Time.addHour()") ^
+    button.value-navigation-btn.up(type="button" ng-click="Time.addHour()")
+      span.glyphicon.glyphicon-menu-up
     input.time-value(
       type="text"
       ng-model="Time.hours"
       ng-change="Time.updateInput()"
       ng-model-options="{ debounce: 1000 }"
       tabindex="1")
-    button.value-navigation-btn.down(type="button" ng-click="Time.subtractHour()") ^
+    button.value-navigation-btn.down(type="button" ng-click="Time.subtractHour()")
+      span.glyphicon.glyphicon-menu-down
   span.time-value-separator
     | :
   .time-value-wrapper
-    button.value-navigation-btn.up(type="button" ng-click="Time.addMinute()") ^
+    button.value-navigation-btn.up(type="button" ng-click="Time.addMinute()")
+      span.glyphicon.glyphicon-menu-up
     input.time-value(
       type="text"
       ng-model="Time.minutes"
       ng-change="Time.updateInput()"
       ng-model-options="{ debounce: 1000 }"
       tabindex="2")
-    button.value-navigation-btn.down(type="button" ng-click="Time.subtractMinute()") ^
+    button.value-navigation-btn.down(type="button" ng-click="Time.subtractMinute()")
+      span.glyphicon.glyphicon-menu-down
   .time-value-part
     button(type="button" ng-bind="Time.part" ng-click="Time.changePart()")
 
