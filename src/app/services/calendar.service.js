@@ -21,6 +21,7 @@ export default class CalendarService {
     this.days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
     this.dates = [];
     this.availabilities = [];
+    this.pricingRules = [];
     this.selected = [];
     this.selectedDates = [];
     this.selectedPeriod = {};

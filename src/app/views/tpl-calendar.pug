@@ -6,7 +6,7 @@
       .date-wrapper(
         mouse-over
         ng-repeat="date in Calendar.dates track by $index"
-        ng-class="{'opened': date.opened.first || date.opened.last, 'busy': date.busy, 'selected': date.selected}")
+        ng-class="{'opened': date.opened.first || date.opened.last, 'busy': date.busy, 'current': date.current, 'selected': date.selected}")
         .day-wrapper(ng-class="{'weekend': date.weekend, 'current': date.current}")
           .day(ng-bind="Calendar.getDate(date.date)")
           .month(ng-bind="Calendar.getMonth(date.date)")

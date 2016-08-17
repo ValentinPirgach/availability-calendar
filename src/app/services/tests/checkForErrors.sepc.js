@@ -54,6 +54,18 @@ describe('Calendar App', () => {
         expect(CalendarService.checkForErrors(period).unavailableDates).toBeDefined();
         expect(CalendarService.checkForErrors(period).unbrokenPrice).toBeDefined();
       });
+
+      it('should return empty object if availabilities or pricies is undefined', () => {
+        CalendarService.availabilities = [];
+        CalendarService.pricingRules = [];
+
+        let period = {
+          "dateStart": moment("2016-08-07T21:00:00.000Z"),
+          "dateEnd": moment("2016-08-11T20:59:59.999Z")
+        };
+        expect(CalendarService.checkForErrors(period).unavailableDates).not.toBeDefined();
+        expect(CalendarService.checkForErrors(period).unbrokenPrice).not.toBeDefined();
+      });
     });
   });
 });
