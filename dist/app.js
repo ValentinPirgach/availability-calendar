@@ -32025,8 +32025,8 @@
 	    return {
 	        link: function link(scope, element, attr) {
 	            $timeout(function () {
-	                console.log($('.date-wrapper .current').position());
-	            }, 1000);
+	                $(element).scrollTop($('.date-wrapper .current').position().top);
+	            });
 
 	            $(element).on('scroll', function (event) {
 	                if ($(element)[0].scrollTop + $(element)[0].offsetHeight >= $(element)[0].scrollHeight - $(element)[0].offsetHeight / 2) {
