@@ -6,16 +6,15 @@
       .date-wrapper(
         mouse-over
         ng-repeat="date in Calendar.dates track by $index"
-        ng-class="{'opened': date.opened.first || date.opened.last, 'busy': date.busy, 'current': date.current, 'selected': date.selected}")
+        ng-class="{'opened': date.opened.first || date.opened.last, 'busy': date.busy, 'past': Calendar.isPast(date), 'current': date.current, 'selected': date.selected}")
         .day-wrapper(ng-class="{'weekend': date.weekend, 'current': date.current}")
           .day(ng-bind="Calendar.getDate(date.date)")
           .month(ng-bind="Calendar.getMonth(date.date)")
           .price(
             ng-if="date.price"
-            ng-bind="date.price | currency: '$': 0"
+            ng-bind="(date.specificPrice ? date.specificPrice.price : date.price) | currency: '$': 2"
             ng-class="{'specific-price': date.specificPrice}")
           .specific-rule(ng-if="date.specificPrice" ng-class="Calendar.specificPriceClasses(date)")
-            .specific-price(ng-bind="date.specificPrice.price | currency:'$':2")
             .glyphicon.glyphicon-lock(ng-if="date.specificPrice.unbroken")
             .glyphicon.glyphicon-eye-open(ng-if="!date.specificPrice.unbroken")
           .day-availability(ng-repeat="availability in date.availability" ng-style="Calendar.cellStyle(availability)")

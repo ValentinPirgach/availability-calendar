@@ -77,38 +77,46 @@
   z-index: 10; }
 
 /* line 62, stdin */
+.date-wrapper.past {
+  opacity: 0.7; }
+
+/* line 64, stdin */
+.date-wrapper.past.selected {
+  opacity: 1; }
+
+/* line 66, stdin */
 .date-wrapper:nth-child(7n) .timepicker-wrapper, .date-wrapper:nth-child(7n-1) .timepicker-wrapper, .date-wrapper:nth-child(7n-2) .timepicker-wrapper, .date-wrapper:nth-child(7n-3) .timepicker-wrapper {
   left: auto;
   right: 100%;
   box-shadow: -3px 5px 10px -4px rgba(0, 0, 0, 0.5); }
 
-/* line 66, stdin */
+/* line 70, stdin */
 .date-wrapper.opened {
   box-shadow: 0 5px 10px -3px rgba(0, 0, 0, 0.5);
   background: #fff;
   z-index: 15; }
 
-/* line 70, stdin */
+/* line 74, stdin */
 .date-wrapper.selected .fill-selected {
   opacity: 1; }
 
-/* line 72, stdin */
+/* line 76, stdin */
 .date-wrapper.selected .day-wrapper {
   color: #2e2e2e; }
 
-/* line 74, stdin */
+/* line 78, stdin */
 .date-wrapper.selected .day-wrapper.weekend {
   color: #b54f4f; }
 
-/* line 76, stdin */
+/* line 80, stdin */
 .date-wrapper.selected .day-wrapper.weekend .day, .date-wrapper.selected .day-wrapper.weekend .month {
   text-shadow: none; }
 
-/* line 78, stdin */
+/* line 82, stdin */
 .date-wrapper.busy .fill-selected {
   background: rgba(253, 0, 11, 0.34); }
 
-/* line 80, stdin */
+/* line 84, stdin */
 .date-wrapper .day-wrapper {
   position: absolute;
   width: 100%;
@@ -125,11 +133,11 @@
   top: 0;
   box-sizing: content-box; }
 
-/* line 95, stdin */
+/* line 99, stdin */
 .date-wrapper .day-wrapper.weekend {
   color: #fb7b7b; }
 
-/* line 97, stdin */
+/* line 101, stdin */
 .date-wrapper .day-wrapper.current::before {
   position: absolute;
   content: '';
@@ -144,17 +152,17 @@
   box-sizing: content-box;
   z-index: 20; }
 
-/* line 110, stdin */
+/* line 114, stdin */
 .date-wrapper .day-wrapper .day {
   font-size: 20px;
   z-index: 10; }
 
-/* line 113, stdin */
+/* line 117, stdin */
 .date-wrapper .day-wrapper .month {
   font-size: 12px;
   z-index: 10; }
 
-/* line 116, stdin */
+/* line 120, stdin */
 .date-wrapper .day-wrapper .price {
   position: absolute;
   right: 0;
@@ -162,17 +170,12 @@
   font-size: 11px;
   color: #2a8c80;
   border: 1px #2a8c80 solid;
-  background: #fcfcfc;
+  background: rgba(252, 252, 252, 0.8);
   padding: 2px 6px;
   z-index: 15;
   border-radius: 0 0 0 5px; }
 
-/* line 127, stdin */
-.date-wrapper .day-wrapper .price.specific-price {
-  text-decoration: line-through;
-  opacity: 0.6; }
-
-/* line 130, stdin */
+/* line 131, stdin */
 .date-wrapper .day-wrapper .price.ng-enter {
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
@@ -180,13 +183,13 @@
   -webkit-transform: scale(0);
   transform: scale(0); }
 
-/* line 136, stdin */
+/* line 137, stdin */
 .date-wrapper .day-wrapper .price.ng-enter.ng-enter-active {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1); }
 
-/* line 141, stdin */
+/* line 142, stdin */
 .specific-rule {
   position: absolute;
   bottom: 5px;
@@ -194,33 +197,35 @@
   width: calc(100% + 1px);
   height: 17px;
   z-index: 15;
-  background: #ffc05c; }
+  background: #ffc05c;
+  margin-left: -1px; }
 
-/* line 149, stdin */
+/* line 151, stdin */
 .specific-rule .specific-price {
   position: absolute;
   font-size: 12px;
   color: #fff;
   display: none;
   line-height: 17px;
-  padding-left: 30px; }
+  padding-left: 30px;
+  white-space: nowrap; }
 
-/* line 156, stdin */
+/* line 159, stdin */
 .specific-rule .glyphicon {
   display: none; }
 
-/* line 158, stdin */
+/* line 161, stdin */
 .specific-rule.first {
   width: 95%;
   border-radius: 5px 0 0 5px;
-  right: -1px;
+  right: 0;
   left: auto; }
 
-/* line 163, stdin */
+/* line 166, stdin */
 .specific-rule.first .specific-price {
   display: block; }
 
-/* line 165, stdin */
+/* line 168, stdin */
 .specific-rule.first .glyphicon {
   position: absolute;
   display: block;
@@ -229,17 +234,17 @@
   left: 10px;
   color: #fff; }
 
-/* line 172, stdin */
+/* line 175, stdin */
 .specific-rule.last {
   width: 95%;
   border-radius: 0 5px 5px 0;
   left: 0; }
 
-/* line 176, stdin */
+/* line 179, stdin */
 .specific-rule.unbroken {
   background: #ff995b; }
 
-/* line 178, stdin */
+/* line 181, stdin */
 .specific-rule.ng-enter {
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
@@ -247,13 +252,13 @@
   -webkit-transform: translateX(-100%);
   transform: translateX(-100%); }
 
-/* line 184, stdin */
+/* line 187, stdin */
 .specific-rule.ng-enter.ng-enter-active {
   opacity: 1;
   -webkit-transform: translateX(0);
   transform: translateX(0); }
 
-/* line 189, stdin */
+/* line 192, stdin */
 .day-availability {
   position: absolute;
   height: 100%;
@@ -261,7 +266,7 @@
   z-index: 1;
   background: #f2f2f2; }
 
-/* line 195, stdin */
+/* line 198, stdin */
 .day-availability.ng-enter {
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
@@ -269,13 +274,13 @@
   -webkit-transform: translateX(-100%);
   transform: translateX(-100%); }
 
-/* line 201, stdin */
+/* line 204, stdin */
 .day-availability.ng-enter.ng-enter-active {
   opacity: 1;
   -webkit-transform: translateX(0);
   transform: translateX(0); }
 
-/* line 206, stdin */
+/* line 209, stdin */
 .timepicker-inner-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -286,7 +291,7 @@
   -ms-flex-pack: center;
   justify-content: center; }
 
-/* line 216, stdin */
+/* line 219, stdin */
 .timepicker-wrapper {
   position: absolute;
   border: 1px #ddd solid;
@@ -303,22 +308,22 @@
   -webkit-transition: all 0.2s linear;
   transition: all 0.2s linear; }
 
-/* line 231, stdin */
+/* line 234, stdin */
 .timepicker-wrapper.ng-enter {
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
-/* line 234, stdin */
+/* line 237, stdin */
 .timepicker-wrapper.ng-leave {
   -webkit-transition: all 0.1s ease-in;
   transition: all 0.1s ease-in; }
 
-/* line 237, stdin */
+/* line 240, stdin */
 .timepicker-wrapper.ng-enter {
   overflow: hidden;
   max-width: 0; }
 
-/* line 240, stdin */
+/* line 243, stdin */
 .timepicker-wrapper.ng-enter .timepicker-controlls-wrapper {
   padding-top: 0;
   margin-top: 0;
@@ -326,26 +331,26 @@
   -webkit-transition: all 0.1s ease-out 1s;
   transition: all 0.1s ease-out 1s; }
 
-/* line 246, stdin */
+/* line 249, stdin */
 .timepicker-wrapper.ng-enter.ng-enter-active {
   max-width: 250px; }
 
-/* line 248, stdin */
+/* line 251, stdin */
 .timepicker-wrapper.ng-enter.ng-enter-active .timepicker-controlls-wrapper {
   padding-top: 5px;
   margin-top: 5px;
   max-height: 23px; }
 
-/* line 252, stdin */
+/* line 255, stdin */
 .timepicker-wrapper.ng-leave {
   overflow: hidden;
   max-width: 250px; }
 
-/* line 255, stdin */
+/* line 258, stdin */
 .timepicker-wrapper.ng-leave.ng-leave-active {
   max-width: 0; }
 
-/* line 257, stdin */
+/* line 260, stdin */
 .timepicker-wrapper .value-navigation-btn {
   position: relative;
   width: 100%;
@@ -361,28 +366,28 @@
   padding: 2px 0;
   line-height: 15px; }
 
-/* line 271, stdin */
+/* line 274, stdin */
 .timepicker-wrapper .value-navigation-btn:hover, .timepicker-wrapper .value-navigation-btn:focus {
   background: #e3e3e3; }
 
-/* line 273, stdin */
+/* line 276, stdin */
 .timepicker-wrapper .value-navigation-btn.down {
   border-radius: 0 0 5px 5px; }
 
-/* line 275, stdin */
+/* line 278, stdin */
 .timepicker-wrapper .time-value-wrapper {
   position: relative;
   width: 50px;
   height: auto; }
 
-/* line 279, stdin */
+/* line 282, stdin */
 .timepicker-wrapper .time-value-separator {
   padding: 0 5px;
   line-height: 70px;
   font-family: "Open Sans", sans-serif;
   font-size: 14px; }
 
-/* line 284, stdin */
+/* line 287, stdin */
 .timepicker-wrapper .time-value {
   display: block;
   border: 1px #ddd solid;
@@ -395,11 +400,11 @@
   outline: 0;
   color: #6a6c6f; }
 
-/* line 295, stdin */
+/* line 298, stdin */
 .timepicker-wrapper .time-value-part {
   text-align: center; }
 
-/* line 297, stdin */
+/* line 300, stdin */
 .timepicker-wrapper .time-value-part button {
   border: none;
   background: transparent;
@@ -413,11 +418,11 @@
   margin-top: 22px;
   margin-left: 10px; }
 
-/* line 309, stdin */
+/* line 312, stdin */
 .timepicker-wrapper .time-value-part button:hover, .timepicker-wrapper .time-value-part button:focus {
   background: #f5f5f5; }
 
-/* line 312, stdin */
+/* line 315, stdin */
 .timepicker-controlls-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -434,7 +439,7 @@
   -webkit-transition: all 0.1s ease-out;
   transition: all 0.1s ease-out; }
 
-/* line 327, stdin */
+/* line 330, stdin */
 .timepicker-controlls-wrapper button {
   border: none;
   outline: 0;
@@ -446,19 +451,19 @@
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
   cursor: pointer; }
 
-/* line 337, stdin */
+/* line 340, stdin */
 .timepicker-controlls-wrapper button:hover, .timepicker-controlls-wrapper button:focus {
   background: #34ac67; }
 
-/* line 339, stdin */
+/* line 342, stdin */
 .timepicker-controlls-wrapper button[type=reset] {
   background: #da6354; }
 
-/* line 341, stdin */
+/* line 344, stdin */
 .timepicker-controlls-wrapper button[type=reset]:hover, .timepicker-controlls-wrapper button[type=reset]:focus {
   background: #ec7c6e; }
 
-/* line 344, stdin */
+/* line 347, stdin */
 .fill-selected {
   position: absolute;
   top: 0;
@@ -467,7 +472,7 @@
   opacity: 0;
   z-index: 5; }
 
-/* line 352, stdin */
+/* line 355, stdin */
 .set-time {
   position: absolute;
   font-size: 17px;
@@ -481,28 +486,28 @@
   width: 23px;
   height: 23px; }
 
-/* line 364, stdin */
+/* line 367, stdin */
 .set-time.left {
   left: 0; }
 
-/* line 366, stdin */
+/* line 369, stdin */
 .set-time.right {
   right: 0; }
 
-/* line 368, stdin */
+/* line 371, stdin */
 .set-time.opened {
   background: rgba(200, 200, 200, 0.5); }
 
-/* line 370, stdin */
+/* line 373, stdin */
 .set-time:hover, .set-time:focus {
   background: rgba(200, 200, 200, 0.5); }
 
-/* line 372, stdin */
+/* line 375, stdin */
 .set-time .glyphicon {
   top: -2px;
   left: -1px; }
 
-/* line 376, stdin */
+/* line 379, stdin */
 .dropdown-menu {
   display: block !important; }
 /* line 1, stdin */

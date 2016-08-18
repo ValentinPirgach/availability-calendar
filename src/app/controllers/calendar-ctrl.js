@@ -25,6 +25,10 @@ export default class CalendarCtrl {
     };
   }
 
+  isPast (date) {
+    return moment(date.date).startOf('day').isBefore(moment().startOf('day'));
+  }
+
   cellStyle (cell) {
 		//same day
 		if(cell._first && cell._last) {

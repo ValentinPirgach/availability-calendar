@@ -90,6 +90,14 @@ $selected-color: #28af95;
     }
   }
 
+  &.past {
+    opacity: 0.7;
+
+    &.selected {
+      opacity: 1;
+    }
+  }
+
   &:nth-child(7n),
   &:nth-child(7n-1),
   &:nth-child(7n-2),
@@ -180,14 +188,13 @@ $selected-color: #28af95;
       font-size: 11px;
       color: $price-color;
       border: 1px $price-color solid;
-      background: #fcfcfc;
+      background: rgba(252, 252, 252, 0.8);
       padding: 2px 6px;
       z-index: 15;
       border-radius: 0 0 0 5px;
 
       &.specific-price {
-        text-decoration: line-through;
-        opacity: 0.6;
+
       }
 
       &.ng-enter {
@@ -211,6 +218,7 @@ $selected-color: #28af95;
   size: calc(100% + 1px) 17px;
   z-index: 15;
   background: $specific-price-color;
+  margin-left: -1px;
 
   .specific-price {
     position: absolute;
@@ -219,6 +227,7 @@ $selected-color: #28af95;
     display: none;
     line-height: 17px;
     padding-left: 30px;
+    white-space: nowrap;
   }
 
   .glyphicon {
@@ -228,7 +237,7 @@ $selected-color: #28af95;
   &.first {
     width: 95%;
     border-radius: 5px 0 0 5px;
-    right: -1px;
+    right: 0;
     left: auto;
 
     .specific-price {
