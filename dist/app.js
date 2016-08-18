@@ -190,6 +190,8 @@
 	  function CalendarCtrl(CalendarService) {
 	    _classCallCheck(this, CalendarCtrl);
 
+	    CalendarService.setDefault();
+
 	    this.dates = [];
 	    CalendarService.setDates(this.days);
 	    this.days = CalendarService.getDayNames();
@@ -14727,25 +14729,30 @@
 	  function CalendarService($rootScope) {
 	    _classCallCheck(this, CalendarService);
 
-	    this._lastLoaded = {};
-	    this._maxAddedMonthes = 6;
-	    this._maxDate = moment().add(this._maxAddedMonthes, 'M');
-	    this.days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-	    this.dates = [];
-	    this.availabilities = [];
-	    this.pricingRules = [];
-	    this.selected = {};
-	    this.selectedDates = [];
-	    this.selectedPeriod = {};
-	    this.touched = {};
-	    this.lastOpened = {};
-	    this.errors = {};
-	    this.changeCallback = null;
+	    this.setDefault();
 
 	    this.$rootScope = $rootScope;
 	  }
 
 	  _createClass(CalendarService, [{
+	    key: 'setDefault',
+	    value: function setDefault() {
+	      this._lastLoaded = {};
+	      this._maxAddedMonthes = 6;
+	      this._maxDate = moment().add(this._maxAddedMonthes, 'M');
+	      this.days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+	      this.dates = [];
+	      this.availabilities = [];
+	      this.pricingRules = [];
+	      this.selected = {};
+	      this.selectedDates = [];
+	      this.selectedPeriod = {};
+	      this.touched = {};
+	      this.lastOpened = {};
+	      this.errors = {};
+	      this.changeCallback = null;
+	    }
+	  }, {
 	    key: 'sortDates',
 	    value: function sortDates(dates) {
 	      return dates.sort(function (dateS, dateE) {
