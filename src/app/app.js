@@ -11,7 +11,6 @@ if(process.env.npm_lifecycle_event === 'server') {
 }
 
 if(process.env.npm_lifecycle_event === 'server' || process.env.npm_lifecycle_event === 'build') {
-
   //eonasdan-bootstrap-datetimepicker
   require('eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css');
   require('eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js');

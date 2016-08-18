@@ -144,7 +144,6 @@
 	}
 
 	if (true) {
-
 	  //eonasdan-bootstrap-datetimepicker
 	  __webpack_require__(139);
 	  __webpack_require__(143);
@@ -14735,7 +14734,7 @@
 	    this.dates = [];
 	    this.availabilities = [];
 	    this.pricingRules = [];
-	    this.selected = [];
+	    this.selected = {};
 	    this.selectedDates = [];
 	    this.selectedPeriod = {};
 	    this.touched = {};
@@ -14747,6 +14746,13 @@
 	  }
 
 	  _createClass(CalendarService, [{
+	    key: 'sortDates',
+	    value: function sortDates(dates) {
+	      return dates.sort(function (dateS, dateE) {
+	        return dateS.isAfter(dateE) ? 1 : -1;
+	      });
+	    }
+	  }, {
 	    key: 'getDayNames',
 	    value: function getDayNames() {
 	      return this.days;
@@ -14766,14 +14772,14 @@
 	    key: 'setEnd',
 	    value: function setEnd(date) {
 	      this.selected.end = date.date;
-	      var dates = [this.selected.start, this.selected.end].sort(function (dateS, dateE) {
-	        return dateS.isAfter(dateE);
-	      });
+	      var dates = this.sortDates([this.selected.start, this.selected.end]);
 	      this.renderSelected({ dateStart: moment(dates[0]).startOf('day'), dateEnd: moment(dates[1]).endOf('day') });
 	      this.changeCallback({
 	        $range: this.selectedPeriod,
 	        $calendarErrors: this.checkForErrors(this.selectedPeriod)
 	      });
+
+	      return dates;
 	    }
 	  }, {
 	    key: 'setSelected',
@@ -14799,10 +14805,10 @@
 	    key: 'updateEnd',
 	    value: function updateEnd(date) {
 	      this.selected.end = date.date;
-	      var dates = [this.selected.start, this.selected.end].sort(function (dateS, dateE) {
-	        return dateS.isAfter(dateE);
-	      });
+	      var dates = this.sortDates([this.selected.start, this.selected.end]);
 	      this.renderSelected({ dateStart: moment(dates[0]).startOf('day'), dateEnd: moment(dates[1]).endOf('day') });
+
+	      return dates;
 	    }
 	  }, {
 	    key: 'isWeekend',
@@ -31850,15 +31856,25 @@
 	  value: true
 	});
 	exports.default = renderPrices;
+	var sortByPriorityAndId = function sortByPriorityAndId(pricingRules) {
+	  return pricingRules.sort(function (priceA, priceB) {
+	    if (priceA.priority === priceB.priority) return priceA.id - priceB.id;
+	    return priceB.priority - priceA.priority;
+	  });
+	};
+
 	/**
 	 * Viewing prices in cells
 	 **/
 	function renderPrices() {
 	  var _this = this;
 
+	  var regular = sortByPriorityAndId(_.filter(this.pricingRules, { type: 'RegularRule' }));
+	  var specific = sortByPriorityAndId(_.filter(this.pricingRules, { type: 'SpecificRule' }));
+
 	  _.forEach(this.dates, function (date) {
-	    _this.setRegularPrice(date, _.filter(_this.pricingRules, { type: 'RegularRule' }));
-	    _this.setSpecificPrice(date, _.filter(_this.pricingRules, { type: 'SpecificRule' }));
+	    _this.setRegularPrice(date, regular);
+	    _this.setSpecificPrice(date, specific);
 	  });
 
 	  return this;
@@ -42156,7 +42172,7 @@
 /* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(_, $) {'use strict';
+	/* WEBPACK VAR INJECTION */(function($, _) {'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -42166,6 +42182,7 @@
 	  return {
 	    link: function link(scope, element, attr) {
 	      var selected = 'selected';
+	      var elements = $('.date-wrapper');
 
 	      angular.element(element).on('mousedown', function (event) {
 	        var period = CalendarService.getFirstAndLastSelected();
@@ -42194,10 +42211,9 @@
 
 	      angular.element(element).on('mouseover', function (event) {
 	        if (!_.isEmpty(CalendarService.touched)) {
-	          $('.date-wrapper').removeClass(selected);
+	          elements.removeClass(selected);
 	          var touched = $(CalendarService.touched.target).parents('.date-wrapper'),
-	              moved = $(event.target).parents('.date-wrapper'),
-	              elements = $('.date-wrapper');
+	              moved = $(event.target).parents('.date-wrapper');
 
 	          var begin = touched.index(),
 	              end = moved.index();
@@ -42208,8 +42224,12 @@
 	            end = tmp;
 	          }
 
-	          for (var i = begin; i <= end; i++) {
-	            if (!angular.element(elements[i]).hasClass('selected')) angular.element(elements[i]).addClass('selected');
+	          if (begin >= 0 && end >= 0) {
+	            for (var i = begin; i <= end; i++) {
+	              if (!angular.element(elements[i]).hasClass('selected')) {
+	                angular.element(elements[i]).addClass('selected');
+	              }
+	            }
 	          }
 
 	          CalendarService.updateEnd(scope.date);
@@ -42227,7 +42247,7 @@
 	    }
 	  };
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(111), __webpack_require__(129)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(129), __webpack_require__(111)))
 
 /***/ },
 /* 133 */

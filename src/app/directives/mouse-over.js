@@ -2,6 +2,7 @@ export default function mouseOver (CalendarService) {
   return {
     link (scope, element, attr) {
       let selected = 'selected';
+      let elements = $('.date-wrapper');
 
       angular.element(element).on('mousedown', (event) => {
         let period = CalendarService.getFirstAndLastSelected();
@@ -33,13 +34,14 @@ export default function mouseOver (CalendarService) {
 
       angular.element(element).on('mouseover', (event) => {
         if(!_.isEmpty(CalendarService.touched)) {
-          $('.date-wrapper').removeClass(selected);
+          elements.removeClass(selected);
           let touched = $(CalendarService.touched.target).parents('.date-wrapper'),
-              moved = $(event.target).parents('.date-wrapper'),
-              elements = $('.date-wrapper');
+              moved = $(event.target).parents('.date-wrapper');
 
           let begin = touched.index(),
               end = moved.index();
+
+
 
           if(begin > end) {
             let tmp = begin;
@@ -47,9 +49,13 @@ export default function mouseOver (CalendarService) {
             end = tmp;
           }
 
-          for(let i = begin; i <= end; i++) {
-            if(!angular.element(elements[i]).hasClass('selected'))
-              angular.element(elements[i]).addClass('selected');
+
+          if(begin >= 0 && end >= 0) {
+            for(let i = begin; i <= end; i++) {
+              if(!angular.element(elements[i]).hasClass('selected')) {
+                angular.element(elements[i]).addClass('selected');
+              }
+            }
           }
 
           CalendarService.updateEnd(scope.date);

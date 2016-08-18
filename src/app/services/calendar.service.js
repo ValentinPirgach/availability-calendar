@@ -22,7 +22,7 @@ export default class CalendarService {
     this.dates = [];
     this.availabilities = [];
     this.pricingRules = [];
-    this.selected = [];
+    this.selected = {};
     this.selectedDates = [];
     this.selectedPeriod = {};
     this.touched = {};
@@ -31,6 +31,10 @@ export default class CalendarService {
     this.changeCallback = null;
 
     this.$rootScope = $rootScope;
+  }
+
+  sortDates (dates) {
+    return dates.sort((dateS, dateE) => dateS.isAfter(dateE) ? 1 : -1);
   }
 
   getDayNames () {
@@ -48,12 +52,14 @@ export default class CalendarService {
 
   setEnd (date) {
     this.selected.end = date.date;
-    let dates = [this.selected.start, this.selected.end].sort((dateS, dateE) => dateS.isAfter(dateE));
+    let dates = this.sortDates([this.selected.start, this.selected.end]);
     this.renderSelected({dateStart: moment(dates[0]).startOf('day'), dateEnd: moment(dates[1]).endOf('day')});
     this.changeCallback({
       $range: this.selectedPeriod,
       $calendarErrors: this.checkForErrors(this.selectedPeriod)
     });
+
+    return dates;
   }
 
   setSelected (start, end) {
@@ -74,8 +80,10 @@ export default class CalendarService {
 
   updateEnd (date) {
     this.selected.end = date.date;
-    let dates = [this.selected.start, this.selected.end].sort((dateS, dateE) => dateS.isAfter(dateE));
+    let dates = this.sortDates([this.selected.start, this.selected.end]);
     this.renderSelected({dateStart: moment(dates[0]).startOf('day'), dateEnd: moment(dates[1]).endOf('day')});
+
+    return dates;
   }
 
 	isWeekend (date) {
