@@ -1,5 +1,7 @@
 export default class CalendarCtrl {
   constructor(CalendarService) {
+    CalendarService.setDefault();
+
     this.dates = [];
     CalendarService.setDates(this.days);
     this.days = CalendarService.getDayNames();

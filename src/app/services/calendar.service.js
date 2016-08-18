@@ -15,6 +15,12 @@ import checkForErrors from './calendar.services.components/checkForErrors.js';
 
 export default class CalendarService {
   constructor($rootScope) {
+    this.setDefault();
+
+    this.$rootScope = $rootScope;
+  }
+
+  setDefault () {
     this._lastLoaded = {};
     this._maxAddedMonthes = 6;
     this._maxDate = moment().add(this._maxAddedMonthes, 'M');
@@ -29,8 +35,6 @@ export default class CalendarService {
     this.lastOpened = {};
     this.errors = {};
     this.changeCallback = null;
-
-    this.$rootScope = $rootScope;
   }
 
   sortDates (dates) {
