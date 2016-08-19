@@ -1,11 +1,21 @@
-export default function mouseOver (CalendarService) {
+export default function mouseOver (CalendarService, $timeout) {
   return {
     link (scope, element, attr) {
       let selected = 'selected';
       let elements = $('.date-wrapper');
 
+      if(scope.date.current) {
+        $timeout(() => {
+          $('.dates-wrapper').scrollTop($(element).position().top);
+        });
+      }
+
       angular.element(element).on('mousedown', (event) => {
         let period = CalendarService.getFirstAndLastSelected();
+
+        if(scope.date.date.clone().startOf('day').isBefore(moment().startOf('day'))) {
+          return false;
+        }
 
         if(period.first && period.last) {
           let openedTime = [
@@ -34,6 +44,10 @@ export default function mouseOver (CalendarService) {
 
       angular.element(element).on('mouseover', (event) => {
         if(!_.isEmpty(CalendarService.touched)) {
+          if(scope.date.date.clone().startOf('day').isBefore(moment().startOf('day'))) {
+            return false;
+          }
+
           elements.removeClass(selected);
           let touched = $(CalendarService.touched.target).parents('.date-wrapper'),
               moved = $(event.target).parents('.date-wrapper');
@@ -65,6 +79,14 @@ export default function mouseOver (CalendarService) {
 
       angular.element(element).on('mouseup', (event) => {
         if(!_.isEmpty(CalendarService.touched)) {
+          if(scope.date.date.clone().startOf('day').isBefore(moment().startOf('day'))) {
+            let currentDate = _.find(CalendarService.dates, {current: true});
+            CalendarService.touched = {};
+            CalendarService.setEnd(currentDate);
+            scope.$apply();
+            return;
+          }
+
           CalendarService.touched = {};
           CalendarService.setEnd(scope.date);
           scope.$apply();

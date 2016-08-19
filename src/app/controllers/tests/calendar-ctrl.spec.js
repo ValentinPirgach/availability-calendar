@@ -14,6 +14,7 @@ describe('Calendar App', () => {
         loadMoreDates: () => {},
         getDayNames: () => {},
         setDates: () => {},
+        setDefault: () => {}
       };
 
       spyOn(CalendarService, 'getDayNames').and.returnValue([]);

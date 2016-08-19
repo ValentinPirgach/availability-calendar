@@ -77,38 +77,47 @@
   z-index: 10; }
 
 /* line 62, stdin */
+.date-wrapper.past .fill-selected {
+  background: rgba(230, 228, 228, 0.2);
+  opacity: 1; }
+
+/* line 65, stdin */
+.date-wrapper.past .day-wrapper {
+  color: #9e9e9e; }
+
+/* line 67, stdin */
 .date-wrapper:nth-child(7n) .timepicker-wrapper, .date-wrapper:nth-child(7n-1) .timepicker-wrapper, .date-wrapper:nth-child(7n-2) .timepicker-wrapper, .date-wrapper:nth-child(7n-3) .timepicker-wrapper {
   left: auto;
   right: 100%;
   box-shadow: -3px 5px 10px -4px rgba(0, 0, 0, 0.5); }
 
-/* line 66, stdin */
+/* line 71, stdin */
 .date-wrapper.opened {
   box-shadow: 0 5px 10px -3px rgba(0, 0, 0, 0.5);
   background: #fff;
   z-index: 15; }
 
-/* line 70, stdin */
+/* line 75, stdin */
 .date-wrapper.selected .fill-selected {
   opacity: 1; }
 
-/* line 72, stdin */
+/* line 77, stdin */
 .date-wrapper.selected .day-wrapper {
   color: #2e2e2e; }
 
-/* line 74, stdin */
+/* line 79, stdin */
 .date-wrapper.selected .day-wrapper.weekend {
   color: #b54f4f; }
 
-/* line 76, stdin */
+/* line 81, stdin */
 .date-wrapper.selected .day-wrapper.weekend .day, .date-wrapper.selected .day-wrapper.weekend .month {
   text-shadow: none; }
 
-/* line 78, stdin */
+/* line 83, stdin */
 .date-wrapper.busy .fill-selected {
   background: rgba(253, 0, 11, 0.34); }
 
-/* line 80, stdin */
+/* line 85, stdin */
 .date-wrapper .day-wrapper {
   position: absolute;
   width: 100%;
@@ -125,11 +134,11 @@
   top: 0;
   box-sizing: content-box; }
 
-/* line 95, stdin */
+/* line 100, stdin */
 .date-wrapper .day-wrapper.weekend {
   color: #fb7b7b; }
 
-/* line 97, stdin */
+/* line 102, stdin */
 .date-wrapper .day-wrapper.current::before {
   position: absolute;
   content: '';
@@ -144,17 +153,17 @@
   box-sizing: content-box;
   z-index: 20; }
 
-/* line 110, stdin */
+/* line 115, stdin */
 .date-wrapper .day-wrapper .day {
   font-size: 20px;
   z-index: 10; }
 
-/* line 113, stdin */
+/* line 118, stdin */
 .date-wrapper .day-wrapper .month {
   font-size: 12px;
   z-index: 10; }
 
-/* line 116, stdin */
+/* line 121, stdin */
 .date-wrapper .day-wrapper .price {
   position: absolute;
   right: 0;
@@ -167,7 +176,7 @@
   z-index: 15;
   border-radius: 0 0 0 5px; }
 
-/* line 127, stdin */
+/* line 132, stdin */
 .date-wrapper .day-wrapper .price.ng-enter {
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
@@ -175,13 +184,13 @@
   -webkit-transform: scale(0);
   transform: scale(0); }
 
-/* line 133, stdin */
+/* line 138, stdin */
 .date-wrapper .day-wrapper .price.ng-enter.ng-enter-active {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1); }
 
-/* line 138, stdin */
+/* line 143, stdin */
 .specific-rule {
   position: absolute;
   bottom: 5px;
@@ -192,7 +201,7 @@
   background: #ffc05c;
   margin-left: -1px; }
 
-/* line 147, stdin */
+/* line 152, stdin */
 .specific-rule .specific-price {
   position: absolute;
   font-size: 12px;
@@ -202,22 +211,22 @@
   padding-left: 30px;
   white-space: nowrap; }
 
-/* line 155, stdin */
+/* line 160, stdin */
 .specific-rule .glyphicon {
   display: none; }
 
-/* line 157, stdin */
+/* line 162, stdin */
 .specific-rule.first {
   width: 95%;
   border-radius: 5px 0 0 5px;
   right: 0;
   left: auto; }
 
-/* line 162, stdin */
+/* line 167, stdin */
 .specific-rule.first .specific-price {
   display: block; }
 
-/* line 164, stdin */
+/* line 169, stdin */
 .specific-rule.first .glyphicon {
   position: absolute;
   display: block;
@@ -226,17 +235,17 @@
   left: 10px;
   color: #fff; }
 
-/* line 171, stdin */
+/* line 176, stdin */
 .specific-rule.last {
   width: 95%;
   border-radius: 0 5px 5px 0;
   left: 0; }
 
-/* line 175, stdin */
+/* line 180, stdin */
 .specific-rule.unbroken {
   background: #ff995b; }
 
-/* line 177, stdin */
+/* line 182, stdin */
 .specific-rule.ng-enter {
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
@@ -244,13 +253,13 @@
   -webkit-transform: translateX(-100%);
   transform: translateX(-100%); }
 
-/* line 183, stdin */
+/* line 188, stdin */
 .specific-rule.ng-enter.ng-enter-active {
   opacity: 1;
   -webkit-transform: translateX(0);
   transform: translateX(0); }
 
-/* line 188, stdin */
+/* line 193, stdin */
 .day-availability {
   position: absolute;
   height: 100%;
@@ -258,7 +267,7 @@
   z-index: 1;
   background: #f2f2f2; }
 
-/* line 194, stdin */
+/* line 199, stdin */
 .day-availability.ng-enter {
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
@@ -266,13 +275,13 @@
   -webkit-transform: translateX(-100%);
   transform: translateX(-100%); }
 
-/* line 200, stdin */
+/* line 205, stdin */
 .day-availability.ng-enter.ng-enter-active {
   opacity: 1;
   -webkit-transform: translateX(0);
   transform: translateX(0); }
 
-/* line 205, stdin */
+/* line 210, stdin */
 .timepicker-inner-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -283,7 +292,7 @@
   -ms-flex-pack: center;
   justify-content: center; }
 
-/* line 215, stdin */
+/* line 220, stdin */
 .timepicker-wrapper {
   position: absolute;
   border: 1px #ddd solid;
@@ -298,7 +307,7 @@
   box-shadow: 3px 5px 10px -4px rgba(0, 0, 0, 0.5);
   padding: 7px 10px 8px; }
 
-/* line 228, stdin */
+/* line 233, stdin */
 .timepicker-wrapper .value-navigation-btn {
   position: relative;
   width: 100%;
@@ -314,28 +323,28 @@
   padding: 2px 0;
   line-height: 15px; }
 
-/* line 242, stdin */
+/* line 247, stdin */
 .timepicker-wrapper .value-navigation-btn:hover, .timepicker-wrapper .value-navigation-btn:focus {
   background: #e3e3e3; }
 
-/* line 244, stdin */
+/* line 249, stdin */
 .timepicker-wrapper .value-navigation-btn.down {
   border-radius: 0 0 5px 5px; }
 
-/* line 246, stdin */
+/* line 251, stdin */
 .timepicker-wrapper .time-value-wrapper {
   position: relative;
   width: 50px;
   height: auto; }
 
-/* line 250, stdin */
+/* line 255, stdin */
 .timepicker-wrapper .time-value-separator {
   padding: 0 5px;
   line-height: 70px;
   font-family: "Open Sans", sans-serif;
   font-size: 14px; }
 
-/* line 255, stdin */
+/* line 260, stdin */
 .timepicker-wrapper .time-value {
   display: block;
   border: 1px #ddd solid;
@@ -348,11 +357,11 @@
   outline: 0;
   color: #6a6c6f; }
 
-/* line 266, stdin */
+/* line 271, stdin */
 .timepicker-wrapper .time-value-part {
   text-align: center; }
 
-/* line 268, stdin */
+/* line 273, stdin */
 .timepicker-wrapper .time-value-part button {
   border: none;
   background: transparent;
@@ -366,11 +375,11 @@
   margin-top: 22px;
   margin-left: 10px; }
 
-/* line 280, stdin */
+/* line 285, stdin */
 .timepicker-wrapper .time-value-part button:hover, .timepicker-wrapper .time-value-part button:focus {
   background: #f5f5f5; }
 
-/* line 283, stdin */
+/* line 288, stdin */
 .timepicker-controlls-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -387,7 +396,7 @@
   -webkit-transition: all 0.1s ease-out;
   transition: all 0.1s ease-out; }
 
-/* line 298, stdin */
+/* line 303, stdin */
 .timepicker-controlls-wrapper button {
   border: none;
   outline: 0;
@@ -399,19 +408,19 @@
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
   cursor: pointer; }
 
-/* line 308, stdin */
+/* line 313, stdin */
 .timepicker-controlls-wrapper button:hover, .timepicker-controlls-wrapper button:focus {
   background: #34ac67; }
 
-/* line 310, stdin */
+/* line 315, stdin */
 .timepicker-controlls-wrapper button[type=reset] {
   background: #da6354; }
 
-/* line 312, stdin */
+/* line 317, stdin */
 .timepicker-controlls-wrapper button[type=reset]:hover, .timepicker-controlls-wrapper button[type=reset]:focus {
   background: #ec7c6e; }
 
-/* line 315, stdin */
+/* line 320, stdin */
 .fill-selected {
   position: absolute;
   top: 0;
@@ -420,7 +429,7 @@
   opacity: 0;
   z-index: 5; }
 
-/* line 323, stdin */
+/* line 328, stdin */
 .set-time {
   position: absolute;
   font-size: 17px;
@@ -434,28 +443,28 @@
   width: 23px;
   height: 23px; }
 
-/* line 335, stdin */
+/* line 340, stdin */
 .set-time.left {
   left: 0; }
 
-/* line 337, stdin */
+/* line 342, stdin */
 .set-time.right {
   right: 0; }
 
-/* line 339, stdin */
+/* line 344, stdin */
 .set-time.opened {
   background: rgba(200, 200, 200, 0.5); }
 
-/* line 341, stdin */
+/* line 346, stdin */
 .set-time:hover, .set-time:focus {
   background: rgba(200, 200, 200, 0.5); }
 
-/* line 343, stdin */
+/* line 348, stdin */
 .set-time .glyphicon {
   top: -2px;
   left: -1px; }
 
-/* line 347, stdin */
+/* line 352, stdin */
 .dropdown-menu {
   display: block !important; }
 /* line 1, stdin */

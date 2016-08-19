@@ -42179,20 +42179,30 @@
 /* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function($, _) {'use strict';
+	/* WEBPACK VAR INJECTION */(function($, moment, _) {'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.default = mouseOver;
-	function mouseOver(CalendarService) {
+	function mouseOver(CalendarService, $timeout) {
 	  return {
 	    link: function link(scope, element, attr) {
 	      var selected = 'selected';
 	      var elements = $('.date-wrapper');
 
+	      if (scope.date.current) {
+	        $timeout(function () {
+	          $('.dates-wrapper').scrollTop($(element).position().top);
+	        });
+	      }
+
 	      angular.element(element).on('mousedown', function (event) {
 	        var period = CalendarService.getFirstAndLastSelected();
+
+	        if (scope.date.date.clone().startOf('day').isBefore(moment().startOf('day'))) {
+	          return false;
+	        }
 
 	        if (period.first && period.last) {
 	          var openedTime = [period.first.opened.first, period.first.opened.last, period.last.opened.first, period.last.opened.last];
@@ -42218,6 +42228,10 @@
 
 	      angular.element(element).on('mouseover', function (event) {
 	        if (!_.isEmpty(CalendarService.touched)) {
+	          if (scope.date.date.clone().startOf('day').isBefore(moment().startOf('day'))) {
+	            return false;
+	          }
+
 	          elements.removeClass(selected);
 	          var touched = $(CalendarService.touched.target).parents('.date-wrapper'),
 	              moved = $(event.target).parents('.date-wrapper');
@@ -42246,6 +42260,14 @@
 
 	      angular.element(element).on('mouseup', function (event) {
 	        if (!_.isEmpty(CalendarService.touched)) {
+	          if (scope.date.date.clone().startOf('day').isBefore(moment().startOf('day'))) {
+	            var currentDate = _.find(CalendarService.dates, { current: true });
+	            CalendarService.touched = {};
+	            CalendarService.setEnd(currentDate);
+	            scope.$apply();
+	            return;
+	          }
+
 	          CalendarService.touched = {};
 	          CalendarService.setEnd(scope.date);
 	          scope.$apply();
@@ -42254,7 +42276,7 @@
 	    }
 	  };
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(129), __webpack_require__(111)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(129), __webpack_require__(2), __webpack_require__(111)))
 
 /***/ },
 /* 133 */
