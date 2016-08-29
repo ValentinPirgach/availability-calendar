@@ -19,6 +19,7 @@ export default function loadMoreDates (dates) {
   }
 
   this.renderPrices();
+  this.renderAvailabilities();
 
   return _.assign(this.dates, dates);
 }

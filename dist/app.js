@@ -31675,6 +31675,7 @@
 	  }
 
 	  this.renderPrices();
+	  this.renderAvailabilities();
 
 	  return _.assign(this.dates, dates);
 	}
@@ -31768,12 +31769,16 @@
 	      var day_availability = {};
 
 	      if (date.date.isBetween(moment(avail.startDateNy), moment(avail.endDateNy))) {
-	        _.assign(day_availability, { busy: true });
+	        _.assign(day_availability, {
+	          busy: true,
+	          id: avail.id
+	        });
 	      }
 
 	      if (date.date.isSame(moment(avail.startDateNy), 'day')) {
 	        _.assign(day_availability, {
 	          busy: true,
+	          id: avail.id,
 	          _first: moment(avail.startDateNy)
 	        });
 	      }
@@ -31781,6 +31786,7 @@
 	      if (date.date.isSame(moment(avail.endDateNy), 'day')) {
 	        _.assign(day_availability, {
 	          busy: true,
+	          id: avail.id,
 	          _last: moment(avail.endDateNy)
 	        });
 	      }
@@ -31790,7 +31796,9 @@
 	      }
 
 	      if (!_.isEmpty(day_availability)) {
-	        date.availability.push(day_availability);
+	        if (!_.some(date.availability, function (a) {
+	          return a.id === avail.id;
+	        })) date.availability.push(day_availability);
 	      }
 	    });
 	  });
@@ -42364,7 +42372,8 @@
 	        },
 	        inline: Boolean(scope.inline),
 	        format: scope.format,
-	        minDate: scope.minDate === 'today' ? moment() : null
+	        minDate: scope.minDate === 'today' ? moment().startOf('day') : null,
+	        defaultDate: moment()
 	      };
 
 	      if (Boolean(scope.inline) && angular.element(element).prop('tagName').toLowerCase() === 'input') {
@@ -42383,8 +42392,7 @@
 	      scope.$watch('minDate', function (minDate) {
 	        (function () {
 	          $timeout(function () {
-	            console.log('minDate', minDate);
-	            if (scope.minDate && !_.isEmpty(minDate)) {
+	            if (scope.minDate && !_.isEmpty(minDate) && minDate !== 'today') {
 	              $(element).data('DateTimePicker').minDate(moment(minDate, scope.format));
 	            }
 	          });

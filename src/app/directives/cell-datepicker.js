@@ -25,7 +25,8 @@ export default function cellDatepicker (CalendarService, $timeout, $parse) {
         },
         inline: Boolean(scope.inline),
         format: scope.format,
-        minDate: scope.minDate === 'today' ? moment() : null
+        minDate: scope.minDate === 'today' ? moment().startOf('day') : null,
+        defaultDate: moment()
       };
 
 
@@ -45,8 +46,7 @@ export default function cellDatepicker (CalendarService, $timeout, $parse) {
       scope.$watch('minDate', (minDate) => {
         (() => {
           $timeout(() => {
-            console.log('minDate', minDate);
-            if(scope.minDate && !_.isEmpty(minDate)) {
+            if(scope.minDate && !_.isEmpty(minDate) && minDate !== 'today') {
               $(element).data('DateTimePicker').minDate(moment(minDate, scope.format));
             }
           });

@@ -13,6 +13,10 @@
     <span ng-if="Main.errors.unavailableDates">Please, select another date</span>
     <span ng-if="Main.errors.unbrokenPrice">It's a package date with unbroken specific price</span>
 
+    <div>
+      <input type="text" min-date="'today'" format="DD/MM/YYYY" cell-datepicker ng-model="Main.test.model">
+    </div>
+
     <div class="row text-center">
       {{Main.checkIn.format()}} - {{Main.checkOut.format()}}
     </div>

@@ -31,8 +31,7 @@ module.exports = function karmaConfig (config) {
 
     browsers: [
       // Run tests using PhantomJS
-      'PhantomJS',
-      'Safari'
+      'PhantomJS'
     ],
 
     singleRun: true,
