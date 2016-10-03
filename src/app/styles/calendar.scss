@@ -456,6 +456,7 @@ $selected-color: #28af95;
   position: absolute;
   top: 0;
   height: 100%;
+  max-width: 100%;
   background: $selected-color;
   opacity: 0;
   z-index: 5;
