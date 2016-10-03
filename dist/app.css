@@ -425,11 +425,12 @@
   position: absolute;
   top: 0;
   height: 100%;
+  max-width: 100%;
   background: #28af95;
   opacity: 0;
   z-index: 5; }
 
-/* line 328, stdin */
+/* line 329, stdin */
 .set-time {
   position: absolute;
   font-size: 17px;
@@ -443,28 +444,28 @@
   width: 23px;
   height: 23px; }
 
-/* line 340, stdin */
+/* line 341, stdin */
 .set-time.left {
   left: 0; }
 
-/* line 342, stdin */
+/* line 343, stdin */
 .set-time.right {
   right: 0; }
 
-/* line 344, stdin */
+/* line 345, stdin */
 .set-time.opened {
   background: rgba(200, 200, 200, 0.5); }
 
-/* line 346, stdin */
+/* line 347, stdin */
 .set-time:hover, .set-time:focus {
   background: rgba(200, 200, 200, 0.5); }
 
-/* line 348, stdin */
+/* line 349, stdin */
 .set-time .glyphicon {
   top: -2px;
   left: -1px; }
 
-/* line 352, stdin */
+/* line 353, stdin */
 .dropdown-menu {
   display: block !important; }
 /* line 1, stdin */
