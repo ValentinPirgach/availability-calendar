@@ -25,6 +25,7 @@ export default class CalendarService {
     this._prevLoaded = {};
     this._maxAddedMonthes = 999;
     this._maxDate = moment().add(this._maxAddedMonthes, 'M');
+    this._minDate = moment('01-02-2016', 'DD-MM-YYYY');
     this.days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
     this.dates = [];
     this.lines = [];
