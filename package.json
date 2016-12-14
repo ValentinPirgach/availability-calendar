@@ -11,18 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Foxandxss/angular-webpack-workflow.git"
+    "url": "https://github.com/ValentinPirgach/availability-calendar.git"
   },
-  "engines" : {
-    "npm" : "5.x.x"
+  "engines": {
+    "npm": "5.x.x"
   },
-  "author": "Jesus Rodriguez",
+  "author": "Valentin Pirgach",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Foxandxss/angular-webpack-workflow/issues"
-  },
-  "homepage": "https://github.com/Foxandxss/angular-webpack-workflow",
   "dependencies": {
+    "angular-vs-repeat": "^1.1.7",
     "style-loader": "^0.13.1"
   },
   "devDependencies": {

@@ -5,7 +5,9 @@ if(process.env.npm_lifecycle_event === 'server') {
   require('bootstrap-sass/eyeglass-exports');
   require('./styles/bootstrap.scss');
   require('angular');
+  require('angular-vs-repeat/src/angular-vs-repeat.min.js');
   modules.push(require('angular-animate'));
+  modules.push('vs-repeat');
   var _ = require('lodash');
   var moment = require('moment/moment.js');
 }

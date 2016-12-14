@@ -6,9 +6,15 @@ export default class CalendarCtrl {
     CalendarService.setDates(this.days);
     this.days = CalendarService.getDayNames();
     let dates = CalendarService.generateDates();
-    this.dates = CalendarService.loadMoreDates(dates);
+    let data = CalendarService.loadMoreDates(dates);
+    this.dates = data.dates;
+    this.lines = data.lines;
     this.selectedDates = [];
     this.CalendarService = CalendarService;
+  }
+
+  chunk (list) {
+    return _.chunk(list, 7);
   }
 
   getDate (_moment_) {
@@ -17,6 +23,10 @@ export default class CalendarCtrl {
 
   getMonth (_moment_) {
     return _moment_.format('MMMM');
+  }
+
+  getYear (_moment_) {
+    return _moment_.format('YYYY');
   }
 
   specificPriceClasses (date) {

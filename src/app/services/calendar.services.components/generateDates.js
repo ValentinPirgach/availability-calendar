@@ -2,7 +2,7 @@
  * Creating calendar dates
  **/
 export default function generateDates (_moment_) {
-  _moment_ = _moment_ || moment();
+  _moment_ = _moment_ || moment().startOf('month');
 
   var count = new Date(_moment_.year(), _moment_.month() + 1, 0).getDate(),
       dates = [];
@@ -20,9 +20,11 @@ export default function generateDates (_moment_) {
     });
   }
 
+
   let dow = moment(this._lastLoaded).date(1).day();
+
   for(let i = 0; i < dow; i++) {
-    let date = moment(this._lastLoaded).date(1).subtract(i+1, 'day').startOf('day');
+    let date = moment(this._lastLoaded).date(1).subtract(i + 1, 'day').startOf('day');
     dates.unshift({
       date: date,
       weekend: this.isWeekend(date),
@@ -35,6 +37,6 @@ export default function generateDates (_moment_) {
   }
 
   this._lastLoaded = _moment_.startOf('month');
-
+  this._prevLoaded = dates[0].date;
   return dates;
 }

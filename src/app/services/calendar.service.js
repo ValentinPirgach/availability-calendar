@@ -22,10 +22,12 @@ export default class CalendarService {
 
   setDefault () {
     this._lastLoaded = {};
-    this._maxAddedMonthes = 6;
+    this._prevLoaded = {};
+    this._maxAddedMonthes = 999;
     this._maxDate = moment().add(this._maxAddedMonthes, 'M');
     this.days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
     this.dates = [];
+    this.lines = [];
     this.availabilities = [];
     this.pricingRules = [];
     this.selected = {};

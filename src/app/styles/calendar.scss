@@ -101,6 +101,10 @@ $selected-color: #28af95;
     }
   }
 
+  &.current {
+    border: 2px $current-day-border-color solid;
+  }
+
   &:nth-child(7n),
   &:nth-child(7n-1),
   &:nth-child(7n-2),
@@ -159,19 +163,19 @@ $selected-color: #28af95;
     }
 
     &.current {
-      &::before {
-        position: absolute;
-        content: '';
-        size: 30px;
-        padding: 6px;
-        border: 1px $current-day-border-color solid;
-        top: 50%;
-        left: 50%;
-        margin: -21px;
-        border-radius: 5px;
-        box-sizing: content-box;
-        z-index: 20;
-      }
+      //&::before {
+      //  position: absolute;
+      //  content: '';
+      //  size: 30px;
+      //  padding: 6px;
+      //  border: 1px $current-day-border-color solid;
+      //  top: 50%;
+      //  left: 50%;
+      //  margin: -21px;
+      //  border-radius: 5px;
+      //  box-sizing: content-box;
+      //  z-index: 20;
+      //}
     }
 
     .day {
@@ -200,16 +204,16 @@ $selected-color: #28af95;
 
       }
 
-      &.ng-enter {
-        transition: all 0.2s ease-out;
-        opacity: 0;
-        transform: scale(0);
-
-        &.ng-enter-active {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
+      //&.ng-enter {
+      //  transition: all 0.2s ease-out;
+      //  opacity: 0;
+      //  transform: scale(0);
+      //
+      //  &.ng-enter-active {
+      //    opacity: 1;
+      //    transform: scale(1);
+      //  }
+      //}
     }
   }
 }
@@ -268,16 +272,16 @@ $selected-color: #28af95;
     background: $specific-unbroken-color;
   }
 
-  &.ng-enter {
-    transition: all 0.2s ease-out;
-    opacity: 0;
-    transform: translateX(-100%);
-
-    &.ng-enter-active {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
+  //&.ng-enter {
+  //  transition: all 0.2s ease-out;
+  //  opacity: 0;
+  //  transform: translateX(-100%);
+  //
+  //  &.ng-enter-active {
+  //    opacity: 1;
+  //    transform: translateX(0);
+  //  }
+  //}
 }
 
 .day-availability {
@@ -287,16 +291,16 @@ $selected-color: #28af95;
   z-index: 1;
   background: $availabilities-color;
 
-  &.ng-enter {
-    transition: all 0.2s ease-out;
-    opacity: 0;
-    transform: translateX(-100%);
-
-    &.ng-enter-active {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
+  //&.ng-enter {
+  //  transition: all 0.2s ease-out;
+  //  opacity: 0;
+  //  transform: translateX(-100%);
+  //
+  //  &.ng-enter-active {
+  //    opacity: 1;
+  //    transform: translateX(0);
+  //  }
+  //}
 }
 
 .timepicker-inner-wrapper {
@@ -498,4 +502,9 @@ $selected-color: #28af95;
 
 .dropdown-menu {
   display: block !important;
+}
+
+.week-line {
+  height: 93px;
+  width: 100%;
 }
