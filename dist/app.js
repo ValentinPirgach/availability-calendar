@@ -42290,7 +42290,6 @@
 	  return {
 	    link: function link(scope, element, attr) {
 	      var selected = 'selected';
-	      var elements = $('.date-wrapper');
 
 	      if (scope.date.current) {
 	        $timeout(function () {
@@ -42329,11 +42328,13 @@
 
 	      angular.element(element).on('mouseover', function (event) {
 	        if (!_.isEmpty(CalendarService.touched)) {
+	          var elements = $('.date-wrapper');
+
 	          if (scope.date.date.clone().startOf('day').isBefore(moment().startOf('day'))) {
 	            return false;
 	          }
 
-	          elements.removeClass(selected);
+	          //elements.removeClass(selected);
 	          var touched = $(CalendarService.touched.target).parents('.date-wrapper'),
 	              moved = $(event.target).parents('.date-wrapper');
 
