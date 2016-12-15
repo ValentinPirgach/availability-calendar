@@ -63,7 +63,6 @@ $selected-color: #28af95;
   width: calc(100% / 7);
   text-align: center;
   min-height: 93px;
-  //border-bottom: 1px $calendar-border-color solid;
   user-select: none;
   cursor: default;
   z-index: 5;
@@ -156,26 +155,9 @@ $selected-color: #28af95;
     color: #6a6c6f;
     top: 0;
     box-sizing: content-box;
-    //transition: all 0.3s ease-out;
 
     &.weekend {
       color: $weekend-color;
-    }
-
-    &.current {
-      //&::before {
-      //  position: absolute;
-      //  content: '';
-      //  size: 30px;
-      //  padding: 6px;
-      //  border: 1px $current-day-border-color solid;
-      //  top: 50%;
-      //  left: 50%;
-      //  margin: -21px;
-      //  border-radius: 5px;
-      //  box-sizing: content-box;
-      //  z-index: 20;
-      //}
     }
 
     .day {
@@ -199,21 +181,6 @@ $selected-color: #28af95;
       padding: 2px 6px;
       z-index: 15;
       border-radius: 0 0 0 5px;
-
-      &.specific-price {
-
-      }
-
-      //&.ng-enter {
-      //  transition: all 0.2s ease-out;
-      //  opacity: 0;
-      //  transform: scale(0);
-      //
-      //  &.ng-enter-active {
-      //    opacity: 1;
-      //    transform: scale(1);
-      //  }
-      //}
     }
   }
 }
@@ -271,17 +238,6 @@ $selected-color: #28af95;
   &.unbroken {
     background: $specific-unbroken-color;
   }
-
-  //&.ng-enter {
-  //  transition: all 0.2s ease-out;
-  //  opacity: 0;
-  //  transform: translateX(-100%);
-  //
-  //  &.ng-enter-active {
-  //    opacity: 1;
-  //    transform: translateX(0);
-  //  }
-  //}
 }
 
 .day-availability {
@@ -290,17 +246,6 @@ $selected-color: #28af95;
   top: 0;
   z-index: 1;
   background: $availabilities-color;
-
-  //&.ng-enter {
-  //  transition: all 0.2s ease-out;
-  //  opacity: 0;
-  //  transform: translateX(-100%);
-  //
-  //  &.ng-enter-active {
-  //    opacity: 1;
-  //    transform: translateX(0);
-  //  }
-  //}
 }
 
 .timepicker-inner-wrapper {
@@ -322,32 +267,6 @@ $selected-color: #28af95;
   margin-left: -1px;
   box-shadow: 3px 5px 10px -4px rgba(0,0,0,0.5);
   padding: 7px 10px 8px;
-
-  //&.ng-enter {
-  //  transition: all 0.2s linear;
-  //}
-  //
-  //&.ng-leave {
-  //  transition: all 0.1s linear;
-  //}
-  //
-  //&.ng-enter {
-  //  overflow: hidden;
-  //  max-width: 0;
-  //
-  //  &.ng-enter-active {
-  //    max-width: 250px;
-  //  }
-  //}
-  //
-  //&.ng-leave {
-  //  overflow: hidden;
-  //  max-width: 250px;
-  //
-  //  &.ng-leave-active {
-  //    max-width: 0;
-  //  }
-  //}
 
   .value-navigation-btn {
     position: relative;
@@ -425,7 +344,6 @@ $selected-color: #28af95;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  //border-top: 1px $calendar-border-color solid;
   overflow: hidden;
   padding-top: 5px;
   margin-top: 5px;
